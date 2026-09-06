@@ -8,7 +8,7 @@ public class Window extends JFrame{
     public static int WIN_WIDTH = 800;
     public static int WIN_HEIGHT = 600;
     private final Sky sky; //changed to final - Allie
-    private final Ground ground; //changed to final - Allie
+    final Ground ground; //changed to final - Allie
 
     Window() {
         sky = new Sky();

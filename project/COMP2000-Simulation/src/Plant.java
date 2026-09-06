@@ -17,15 +17,15 @@ abstract class Plant extends JPanel implements Growable {
     int spreadNum;        //Max number of seeds a plant can produce
     int growthDelay;      //How long between growth states in milliseconds
     int spreadRadius;     //How far a plant can spread its seeds
-    Window window;
+    Container container;
     Timer timer;
 
-    Plant(Point p, Window window) {
+    Plant(Point p, Container container, int growthDelay) {
         //These numbers are all arbitrary placeholders for now
-        this.window = window;
+        this.container = container;
         spreadNum = 2;
         spreadRadius = 100;
-        growthDelay = 5000;
+        this.growthDelay = growthDelay;
         timer = new Timer();
         TimerTask grow = new TimerTask() {
             @Override
@@ -48,7 +48,7 @@ abstract class Plant extends JPanel implements Growable {
 
         this.setBounds(p.x-size/8, p.y-size/8, size/4, size/4);
         this.setBackground(Color.darkGray);
-        window.addToGround(this, null);
+        container.add(this);
     }
 
     //All plants will have these stages. The ___Action() methods allow each phase
@@ -76,8 +76,9 @@ abstract class Plant extends JPanel implements Growable {
             case DEAD:
                 this.setBackground(Color.BLACK);
                 deadAction();
-                window.removeFromGround(this);
-                window.refresh();
+                container.remove(this);
+                container.revalidate();
+                container.repaint();
                 break;
         }
     }
@@ -95,8 +96,15 @@ abstract class Plant extends JPanel implements Growable {
     abstract void adultAction();
     abstract void deadAction();
 
-    Point getPosition() {
+    @Override
+    public Point getPosition() {
         return position;
+    }
+
+    //TODO
+    @Override
+    public boolean isColliding() {
+        return false;
     }
 
     public String toString() {

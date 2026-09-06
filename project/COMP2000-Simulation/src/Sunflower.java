@@ -1,15 +1,18 @@
-import java.awt.Color;
-import java.awt.Point;
+import java.awt.*;
 
 public class Sunflower extends Flower{
-    //int size;
 
-    Sunflower(Point position, Window window) {
-        super(position, window);
+    Sunflower(Point position, Container window) {
+        super(position, window, 1000);
         this.position = position;
 
         //Check if very close to another plant. If so, immediately die.
         //TODO
+    }
+
+    Sunflower(Point position, Window window, double growthFactor) {
+        super(position, window, (int) (1000 * growthFactor)); //grow at a different rate relative to standard sunflower
+        this.position = position;
     }
 
     @Override
@@ -46,7 +49,7 @@ public class Sunflower extends Flower{
         Sunflower[] children = new Sunflower[spreadNum];
         for(int i = 0; i < spreadNum; i++) {
             Point newPoint = radius.getRandomPoint();
-            children[i] = new Sunflower(newPoint, window);    //Will immediately go out of scope for now
+            children[i] = new Sunflower(newPoint, this.getParent());    //Will immediately go out of scope for now
         }
     }
 }

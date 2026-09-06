@@ -1,4 +1,6 @@
-import java.awt.Point;
+import java.awt.*;
+import java.util.ArrayList;
+import javax.swing.*;
 
 public class Radius {
     int minX;
@@ -20,5 +22,27 @@ public class Radius {
         int y = (int) ((Math.random() * (maxY - minY)) + minY);
         
         return new Point(x, y);
+    }
+
+    boolean isPointInRadius(Point p) {
+        if(p.x >= minX && p.x <= maxX && p.y >= minY && p.y <= maxY) {
+            return true;
+        }
+        return false;
+    }
+
+    ArrayList<Growable> getObjectsInRadius(JPanel ground) {
+        ArrayList<Growable> items = new ArrayList<>();
+        Component[] comps = ground.getComponents();
+        for(int i = 0; i < comps.length; i++) {
+            if(comps[i] instanceof Growable) {
+                Growable temp = (Growable) comps[i];
+                Point p = temp.getPosition();
+                if(isPointInRadius(p)) {
+                    items.add(temp);
+                }
+            }
+        }
+        return items;
     }
 }
