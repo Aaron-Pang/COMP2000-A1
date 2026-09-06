@@ -3,9 +3,10 @@ import java.awt.*;
 public class Sunflower extends Flower{
 
     int spreadNum = 2;
+    int growthDelay = 5000;
 
     Sunflower(Point position, Container window) {
-        super(position, window, 1000);
+        super(position, window, 5000);
         this.position = position;
 
         //Check if very close to another plant. If so, immediately die.
@@ -13,7 +14,7 @@ public class Sunflower extends Flower{
     }
 
     Sunflower(Point position, Container window, double growthFactor) {
-        super(position, window, (int) (1000 / growthFactor)); //grow at a different rate relative to standard sunflower
+        super(position, window, (int) (5000 / growthFactor)); //grow at a different rate relative to standard sunflower
         this.position = position;
     }
 
@@ -23,6 +24,11 @@ public class Sunflower extends Flower{
         if ((int) (Math.random() * 100) == 0) {
             spread();
         }
+    }
+
+    @Override
+    public void increaseSpreadNum(double factor) {
+        spreadNum = (int) factor * spreadNum;
     }
 
     @Override

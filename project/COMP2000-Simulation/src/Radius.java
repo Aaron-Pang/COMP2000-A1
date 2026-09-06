@@ -42,7 +42,7 @@ public class Radius {
                 }
             }
         }
-        return null;
+        return items;
     }
 
     <T extends Growable> ArrayList<T> getObjects(Ground ground) {

@@ -5,4 +5,5 @@ public interface Growable {
     abstract void grow();
     abstract Point getPosition();
     abstract boolean isColliding();
+    abstract void increaseSpreadNum(double factor);
 }
