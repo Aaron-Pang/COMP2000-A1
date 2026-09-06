@@ -2,6 +2,8 @@ import java.awt.*;
 
 public class Sunflower extends Flower{
 
+    int spreadNum = 2;
+
     Sunflower(Point position, Container window) {
         super(position, window, 1000);
         this.position = position;
@@ -10,8 +12,8 @@ public class Sunflower extends Flower{
         //TODO
     }
 
-    Sunflower(Point position, Window window, double growthFactor) {
-        super(position, window, (int) (1000 * growthFactor)); //grow at a different rate relative to standard sunflower
+    Sunflower(Point position, Container window, double growthFactor) {
+        super(position, window, (int) (1000 / growthFactor)); //grow at a different rate relative to standard sunflower
         this.position = position;
     }
 

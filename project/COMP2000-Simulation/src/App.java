@@ -10,6 +10,6 @@ public class App {
 
         new Sunflower(new Point(200, 200), window.ground);
 
-        window.addToGround(new Patch(50, new Point(75, 50)), null);
+        window.addToGround(new Patch(50, new Point(75, 50), window.ground), null);
     }
 }

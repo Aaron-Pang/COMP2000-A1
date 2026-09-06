@@ -23,7 +23,7 @@ abstract class Plant extends JPanel implements Growable {
     Plant(Point p, Container container, int growthDelay) {
         //These numbers are all arbitrary placeholders for now
         this.container = container;
-        spreadNum = 2;
+        //spreadNum = 2;
         spreadRadius = 100;
         this.growthDelay = growthDelay;
         timer = new Timer();

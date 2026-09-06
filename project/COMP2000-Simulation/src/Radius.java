@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.util.ArrayList;
-import javax.swing.*;
 
 public class Radius {
     int minX;
@@ -31,7 +30,7 @@ public class Radius {
         return false;
     }
 
-    ArrayList<Growable> getObjectsInRadius(JPanel ground) {
+    ArrayList<Growable> getObjectsInRadius(Ground ground) {
         ArrayList<Growable> items = new ArrayList<>();
         Component[] comps = ground.getComponents();
         for(int i = 0; i < comps.length; i++) {
@@ -43,6 +42,13 @@ public class Radius {
                 }
             }
         }
+        return null;
+    }
+
+    <T extends Growable> ArrayList<T> getObjects(Ground ground) {
+        ArrayList<T> items = new ArrayList<>();
+        
+
         return items;
     }
 }
