@@ -8,13 +8,16 @@ public class App {
 
         //TODO: needs refresh rate code here or in controller - Allie
 
-        Patch<Sunflower> p = new Patch(50, new Point(75, 50), window.ground);
+        Patch<Sunflower> p = new Patch(50, new Point(75, 50));
 
         window.addToGround(p, null);
 
-        Sunflower sf = new Sunflower(new Point(75, 50), window.ground);
+        Sunflower sf = new Sunflower(new Point(75, 50));
+
+        window.addToGround(sf, null);
 
         p.addToPatch(sf);
+
         
     }
 }

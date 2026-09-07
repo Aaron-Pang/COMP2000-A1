@@ -30,20 +30,7 @@ public class Radius {
         return false;
     }
 
-    ArrayList<Growable> getObjectsInRadius(Ground ground) {
-        ArrayList<Growable> items = new ArrayList<>();
-        Component[] comps = ground.getComponents();
-        for(int i = 0; i < comps.length; i++) {
-            if(comps[i] instanceof Growable) {
-                Growable temp = (Growable) comps[i];
-                Point p = temp.getPosition();
-                if(isPointInRadius(p)) {
-                    items.add(temp);
-                }
-            }
-        }
-        return items;
-    }
+    
 
     <T extends Growable> ArrayList<T> getObjects(Ground ground) {
         ArrayList<T> items = new ArrayList<>();

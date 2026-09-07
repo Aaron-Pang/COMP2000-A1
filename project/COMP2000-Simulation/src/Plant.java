@@ -20,7 +20,7 @@ abstract class Plant extends JPanel implements Growable {
     Container container;
     Timer timer;
 
-    Plant(Point p, Container container, int growthDelay) {
+    Plant(Point p, int growthDelay) {
         //These numbers are all arbitrary placeholders for now
         this.container = container;
         //spreadNum = 2;
@@ -48,7 +48,7 @@ abstract class Plant extends JPanel implements Growable {
 
         this.setBounds(p.x-size/8, p.y-size/8, size/4, size/4);
         this.setBackground(Color.darkGray);
-        container.add(this);
+        //this.setOpaque(false);
     }
 
     //All plants will have these stages. The ___Action() methods allow each phase
@@ -57,6 +57,12 @@ abstract class Plant extends JPanel implements Growable {
         switch(growthState) {
             case SEED:
                 this.setBackground(new Color(79, 46, 9));
+                /*
+                Graphics g = this.getGraphics();
+                g.setColor(Color.BLACK);
+                g.fillOval(position.x, position.y, size, size);
+                g.dispose();
+                */
                 seedAction();
                 break;
             case SEEDLING:

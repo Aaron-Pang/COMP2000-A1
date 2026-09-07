@@ -22,6 +22,10 @@ public class Sky extends JPanel{
         this.setPreferredSize(new Dimension(Window.WIN_WIDTH, Window.WIN_HEIGHT/4));
     }
 
+    public void tick() {
+        
+    }
+
     public void changeWeather(int newWeather) {
         if(newWeather >= DAWN && newWeather <= NIGHT) {
             weatherState = newWeather;

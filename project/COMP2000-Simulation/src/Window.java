@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.*;
 
 public class Window extends JFrame{
@@ -8,11 +10,23 @@ public class Window extends JFrame{
     public static int WIN_WIDTH = 800;
     public static int WIN_HEIGHT = 600;
     private final Sky sky; //changed to final - Allie
-    final Ground ground; //changed to final - Allie
+    private final Ground ground; //changed to final - Allie
+
+    Timer timer;
 
     Window() {
         sky = new Sky();
         ground = new Ground();
+
+        timer = new Timer();
+        TimerTask tick = new TimerTask() {
+            @Override 
+            public void run() {
+                ground.tick();
+                sky.tick();
+            }
+        };
+        timer.schedule(tick, 25, 25);
 
         //Basic window props
         this.setTitle("GAASK Plant Simulation COMP2000");
