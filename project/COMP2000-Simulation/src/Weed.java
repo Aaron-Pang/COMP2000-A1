@@ -1,29 +1,50 @@
 import java.awt.*;
+import java.util.Random;
 import javax.swing.BorderFactory;
 
-public class Weed extends Plant{
+public class Weed extends Plant {
 
-    int spreadNum = 2;
-    //int growthDelay = 5000;
+    int spreadNum = 1;
     int spreadRadius = 30;
-    static final int size = 30;
+    static final int growthDelay = 1000;
+    static final int size = 10;
+
+    Direction direction;
+    Random random;
 
     Container window;
 
     Weed(Point position) {
-        super(position, 1000, size);
+        super(position, growthDelay, size);
         this.position = position;
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         if(position.x > Window.WIN_WIDTH || position.x < 0 || position.y < 0 || position.y > Window.WIN_HEIGHT/4*3) {
             throw new InvalidPositionException("Position: " + position.x + ", " + position.y);
         }
 
+        random = new Random();
+        direction = new Direction(random.nextInt(-20, 20), random.nextInt(-20, 20));
+
+        //Check if very close to another plant. If so, immediately die.
+        //TODO
+    }
+
+    Weed(Point position, Direction direction) {
+        super(position, growthDelay, size);
+        this.position = position;
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        if(position.x > Window.WIN_WIDTH || position.x < 0 || position.y < 0 || position.y > Window.WIN_HEIGHT/4*3) {
+            throw new InvalidPositionException("Position: " + position.x + ", " + position.y);
+        }
+
+        this.direction = direction;
+
         //Check if very close to another plant. If so, immediately die.
         //TODO
     }
 
     Weed(Point position, double growthFactor) {
-        super(position, (int) (1000 / growthFactor), size); //grow at a different rate relative to standard sunflower
+        super(position, (int) (growthDelay / growthFactor), size); //grow at a different rate relative to standard sunflower
         this.position = position;
     }
 
@@ -62,17 +83,20 @@ public class Weed extends Plant{
 
     @Override
     public void deadAction() {
-
+        
     }
 
     @Override
     public void spread() {
-        Radius radius = new Radius(position, spreadRadius);
-        //Sunflower[] children = new Sunflower[spreadNum];
+        //Radius radius = new Radius(position, spreadRadius);
         for(int i = 0; i < spreadNum; i++) {
-            Point newPoint = radius.getRandomPoint();
             try {
-                getParent().add(new Weed(newPoint));
+                int newX = position.x + direction.dx;
+                int newY = position.y + direction.dy;
+                //int newX = position.x + direction.dx;
+                //int newY = position.y + direction.dy;
+                Point newPoint = new Point(newX, newY);
+                getParent().add(new Weed(newPoint, direction));
             } catch(InvalidPositionException p) {
                 System.out.println("Stopped OOB Weed");
             } catch(Exception e) {

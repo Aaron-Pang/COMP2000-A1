@@ -40,7 +40,7 @@ public class Patch<T extends Growable> extends JPanel implements Observer{
         } else {
             throw new OutOfPatchBoundsException();
         }
-        item.increaseSpreadNum(3);
+        item.increaseSpreadNum(2);
     }
 
     ArrayList<Growable> getObjectsInRadius() {
@@ -58,6 +58,7 @@ public class Patch<T extends Growable> extends JPanel implements Observer{
         return items;
     }
 
+    /*
     void killInArea() {
         ArrayList<Growable> items = getObjectsInRadius();
         for(Growable g : items) {
@@ -66,6 +67,6 @@ public class Patch<T extends Growable> extends JPanel implements Observer{
             }
         }
     }
-
+    */
 
 }

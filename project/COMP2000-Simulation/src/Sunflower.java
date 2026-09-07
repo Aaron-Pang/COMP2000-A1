@@ -2,9 +2,9 @@ import java.awt.*;
 
 public class Sunflower extends Flower{
 
-    int spreadNum = 2;
+    int spreadNum = 1;
     int growthDelay = 5000;
-    static final int size = 60;
+    static final int size = 50;
 
     Sunflower(Point position) {
         super(position, 3000, size);
@@ -64,7 +64,6 @@ public class Sunflower extends Flower{
     @Override
     public void spread() {
         Radius radius = new Radius(position, spreadRadius);
-        //Sunflower[] children = new Sunflower[spreadNum];
         for(int i = 0; i < spreadNum; i++) {
             Point newPoint = radius.getRandomPoint();
             try {

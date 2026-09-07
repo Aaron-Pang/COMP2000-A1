@@ -1,10 +1,11 @@
 import java.awt.*;
 
-public interface Growable{
-    abstract void spread();     //Different things spread in different ways, e.g. wind, bees, spores
-    abstract void grow();
-    abstract Point getPosition();
-    abstract boolean isColliding();
-    abstract void increaseSpreadNum(double factor);
-    abstract void kill();
+public interface Growable {
+    public void spread();     //Different things spread in different ways, e.g. wind, bees, spores
+    public void grow();
+    public Point getPosition();
+    public boolean isColliding();
+    public int getState();
+    public void increaseSpreadNum(double factor);
+    //public void kill();
 }

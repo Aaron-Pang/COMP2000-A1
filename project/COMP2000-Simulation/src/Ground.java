@@ -3,9 +3,9 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-
-
 public class Ground extends JPanel{
+    static final int MAX_OBJECTS = 1024;
+
     Ground() {
         this.setPreferredSize(new Dimension(Window.WIN_WIDTH, Window.WIN_HEIGHT/4*3));
         this.setBackground(Color.green);
@@ -16,12 +16,22 @@ public class Ground extends JPanel{
             @Override
             public void componentAdded(ContainerEvent e) {
                 //Notify observers
-                System.out.println("Item added!");
+                
             }
         });
     }
 
     public void tick() {
+        for(Component c : getComponents()) {
+            if(c instanceof Growable) {
+                if(((Growable) c).getState() == 4) {
+                    System.out.println("Removing");
+                    remove(c);
+                    revalidate();
+                    repaint();
+                }
+            }
+        }
     }
 
     ArrayList<Growable> getGrowables() {

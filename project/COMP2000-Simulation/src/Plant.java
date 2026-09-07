@@ -69,6 +69,7 @@ abstract class Plant extends JPanel implements Growable {
                 break;
             case DEAD:
                 this.setBackground(Color.BLACK);
+                timer.cancel();
                 deadAction();
                 break;
         }
@@ -92,15 +93,15 @@ abstract class Plant extends JPanel implements Growable {
         return position;
     }
 
+    @Override 
+    public int getState() {
+        return growthState;
+    }
+
     //TODO
     @Override
     public boolean isColliding() {
         return false;
-    }
-
-    @Override
-    public void kill() {
-        getParent().remove(this);
     }
 
     public String toString() {
