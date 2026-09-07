@@ -1,6 +1,8 @@
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
+
 
 
 public class Ground extends JPanel{
@@ -8,6 +10,15 @@ public class Ground extends JPanel{
         this.setPreferredSize(new Dimension(Window.WIN_WIDTH, Window.WIN_HEIGHT/4*3));
         this.setBackground(Color.green);
         this.setLayout(null);   //Freeform layout
+
+        //Trigger event whenever a new component is added to ground
+        this.addContainerListener(new ContainerAdapter() {
+            @Override
+            public void componentAdded(ContainerEvent e) {
+                //Notify observers
+                System.out.println("Item added!");
+            }
+        });
     }
 
     public void tick() {

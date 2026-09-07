@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Radius {
     int minX;
@@ -24,18 +23,6 @@ public class Radius {
     }
 
     boolean isPointInRadius(Point p) {
-        if(p.x >= minX && p.x <= maxX && p.y >= minY && p.y <= maxY) {
-            return true;
-        }
-        return false;
-    }
-
-    
-
-    <T extends Growable> ArrayList<T> getObjects(Ground ground) {
-        ArrayList<T> items = new ArrayList<>();
-        
-
-        return items;
+        return(p.x >= minX && p.x <= maxX && p.y >= minY && p.y <= maxY);
     }
 }

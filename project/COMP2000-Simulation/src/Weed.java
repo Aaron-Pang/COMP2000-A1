@@ -1,14 +1,19 @@
 import java.awt.*;
+import javax.swing.BorderFactory;
 
-public class Sunflower extends Flower{
+public class Weed extends Plant{
 
     int spreadNum = 2;
-    int growthDelay = 5000;
-    static final int size = 60;
+    //int growthDelay = 5000;
+    int spreadRadius = 30;
+    static final int size = 30;
 
-    Sunflower(Point position) {
-        super(position, 3000, size);
+    Container window;
+
+    Weed(Point position) {
+        super(position, 1000, size);
         this.position = position;
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         if(position.x > Window.WIN_WIDTH || position.x < 0 || position.y < 0 || position.y > Window.WIN_HEIGHT/4*3) {
             throw new InvalidPositionException("Position: " + position.x + ", " + position.y);
         }
@@ -17,16 +22,24 @@ public class Sunflower extends Flower{
         //TODO
     }
 
-    Sunflower(Point position, double growthFactor) {
-        super(position, (int) (3000 / growthFactor), size); //grow at a different rate relative to standard sunflower
+    Weed(Point position, double growthFactor) {
+        super(position, (int) (1000 / growthFactor), size); //grow at a different rate relative to standard sunflower
         this.position = position;
     }
 
     @Override
-    public void bloom() {
-        this.setBackground(Color.YELLOW);
+    public void adultAction() {
         if ((int) (Math.random() * 100) == 0) {
             spread();
+        }
+    }
+
+    @Override
+    public void grow() {
+        if (!(growthState == ADULT)) {
+            growthState++;
+        } else if ((int) (Math.random() * 100) == 0) {
+            growthState++;
         }
     }
 
@@ -37,23 +50,14 @@ public class Sunflower extends Flower{
 
     @Override
     public void seedAction() {
-        this.setBounds(position.x-size/8, position.y-size/8, size/4, size/4);
     }
 
     @Override
     public void seedlingAction() {
-
     }
 
     @Override
     public void juvenileAction() {
-        this.setBounds(position.x-size/4, position.y-size/4, size/2, size/2);
-    }
-
-    @Override
-    public void adultAction() {
-        bloom();
-        this.setBounds(position.x-size/2, position.y-size/2, size, size);
     }
 
     @Override
@@ -68,9 +72,9 @@ public class Sunflower extends Flower{
         for(int i = 0; i < spreadNum; i++) {
             Point newPoint = radius.getRandomPoint();
             try {
-                getParent().add(new Sunflower(newPoint));
+                getParent().add(new Weed(newPoint));
             } catch(InvalidPositionException p) {
-                System.out.println("Stopped OOB Sunflower");
+                System.out.println("Stopped OOB Weed");
             } catch(Exception e) {
 
             }

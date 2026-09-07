@@ -4,17 +4,15 @@ public class App {
     public static void main(String[] args) {
         Window window = new Window();
 
-        int delay = 50; //Refresh 20 times per second
-
-        //TODO: needs refresh rate code here or in controller - Allie
-
-        Patch<Sunflower> p = new Patch(50, new Point(75, 50));
+        Patch<Sunflower> p = new Patch(100, new Point(200, 200));
 
         window.addToGround(p);
 
-        Sunflower sf = new Sunflower(new Point(75, 50));
+        Sunflower sf = new Sunflower(new Point(200, 200));
+        Weed w = new Weed(new Point(300, 300));
 
         window.addToGround(sf);
+        window.addToGround(w);
 
         p.addToPatch(sf);
     }

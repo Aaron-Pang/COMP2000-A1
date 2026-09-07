@@ -17,12 +17,10 @@ abstract class Plant extends JPanel implements Growable {
     int spreadNum;        //Max number of seeds a plant can produce
     int growthDelay;      //How long between growth states in milliseconds
     int spreadRadius;     //How far a plant can spread its seeds
-    Container container;
     Timer timer;
 
-    Plant(Point p, int growthDelay) {
+    Plant(Point p, int growthDelay, int size) {
         //These numbers are all arbitrary placeholders for now
-        this.container = container;
         //spreadNum = 2;
         spreadRadius = 100;
         this.growthDelay = growthDelay;
@@ -45,10 +43,8 @@ abstract class Plant extends JPanel implements Growable {
         timer.schedule(tick, 25, 25);
 
         this.position = p;
-
-        this.setBounds(p.x-size/8, p.y-size/8, size/4, size/4);
+        this.setBounds(position.x, position.y, size, size);
         this.setBackground(Color.darkGray);
-        //this.setOpaque(false);
     }
 
     //All plants will have these stages. The ___Action() methods allow each phase
@@ -57,12 +53,6 @@ abstract class Plant extends JPanel implements Growable {
         switch(growthState) {
             case SEED:
                 this.setBackground(new Color(79, 46, 9));
-                /*
-                Graphics g = this.getGraphics();
-                g.setColor(Color.BLACK);
-                g.fillOval(position.x, position.y, size, size);
-                g.dispose();
-                */
                 seedAction();
                 break;
             case SEEDLING:
@@ -70,21 +60,16 @@ abstract class Plant extends JPanel implements Growable {
                 seedlingAction();
                 break;
             case JUVENILE:
-                this.setBounds(position.x-size/4, position.y-size/4, size/2, size/2);
                 this.setBackground(new Color(1, 120, 5));
                 juvenileAction();
                 break;
             case ADULT:
-                this.setBounds(position.x-size/2, position.y-size/2, size, size);
                 this.setBackground(new Color(1, 71, 4));
                 adultAction();
                 break;
             case DEAD:
                 this.setBackground(Color.BLACK);
                 deadAction();
-                container.remove(this);
-                container.revalidate();
-                container.repaint();
                 break;
         }
     }
