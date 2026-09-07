@@ -10,7 +10,9 @@ public class Sunflower extends Flower{
     Sunflower(Point position) {
         super(position, 5000);
         this.position = position;
-        this.window = this.getParent();
+        if(position.x > Window.WIN_WIDTH || position.x < 0 || position.y < 0 || position.y > Window.WIN_HEIGHT/4*3) {
+            throw new InvalidPositionException();
+        }
 
         //Check if very close to another plant. If so, immediately die.
         //TODO

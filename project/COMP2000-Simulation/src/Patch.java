@@ -17,11 +17,11 @@ public class Patch<T extends Growable> extends JPanel{
         this.setBackground(new Color(0, 0, 255, 125));
         this.collection = new ArrayList<T>();
     }
+
     @Override
     public void addNotify() throws InvalidParentException {
         super.addNotify();
         parent = getParent();
-        //System.out.println(parent.getClass());
         if(!(parent instanceof Ground)) {
             throw new InvalidParentException("Error: Attempting to add Patch to non-Ground Panel");
         }
@@ -52,6 +52,13 @@ public class Patch<T extends Growable> extends JPanel{
     }
 
     void killInArea() {
-
+        ArrayList<Growable> items = getObjectsInRadius();
+        for(Growable g : items) {
+            if(patchArea.isPointInRadius(g.getPosition())) {
+                g.kill();
+            }
+        }
     }
+
+    
 }

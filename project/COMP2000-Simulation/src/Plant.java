@@ -113,6 +113,11 @@ abstract class Plant extends JPanel implements Growable {
         return false;
     }
 
+    @Override
+    public void kill() {
+        getParent().remove(this);
+    }
+
     public String toString() {
         return "Replace this function";
     }
