@@ -1,10 +1,10 @@
 package growables;
+import exceptions.InvalidPositionException;
 import java.awt.*;
 import java.util.Random;
 import javax.swing.BorderFactory;
-
-import exceptions.InvalidPositionException;
 import supplementary.Direction;
+import supplementary.Window;
 
 public class Weed extends Plant {
 
@@ -16,15 +16,10 @@ public class Weed extends Plant {
     Direction direction;
     Random random;
 
-    Container window;
-
-    Weed(Point position) {
+    public Weed(Point position) {
         super(position, growthDelay, size);
-        this.position = position;
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        if(position.x > Window.WIN_WIDTH || position.x < 0 || position.y < 0 || position.y > Window.WIN_HEIGHT/4*3) {
-            throw new InvalidPositionException("Position: " + position.x + ", " + position.y);
-        }
+        
 
         random = new Random();
         direction = new Direction(random.nextInt(-20, 20), random.nextInt(-20, 20));
@@ -54,7 +49,7 @@ public class Weed extends Plant {
 
     @Override
     public void adultAction() {
-        if ((int) (Math.random() * 100) == 0) {
+        if ((int) (Math.random() * 21) == 0) {
             spread();
         }
     }
@@ -63,7 +58,7 @@ public class Weed extends Plant {
     public void grow() {
         if (!(growthState == ADULT)) {
             growthState++;
-        } else if ((int) (Math.random() * 100) == 0) {
+        } else if ((int) (Math.random() * 3) == 0) {
             growthState++;
         }
     }
@@ -104,10 +99,15 @@ public class Weed extends Plant {
                 grow();
             } catch(InvalidPositionException p) {
                 System.out.println("Stopped OOB Weed");
+                die();
             } catch(Exception e) {
 
             }
         }
+    }
+
+    public void die() {
+        growthState = DEAD;
     }
 
     public String toString() {

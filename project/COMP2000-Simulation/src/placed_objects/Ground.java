@@ -4,11 +4,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
+import supplementary.Window;
 
 public class Ground extends JPanel{
     static final int MAX_OBJECTS = 1024;
 
-    Ground() {
+    public Ground() {
         this.setPreferredSize(new Dimension(Window.WIN_WIDTH, Window.WIN_HEIGHT/4*3));
         this.setBackground(Color.green);
         this.setLayout(null);   //Freeform layout
@@ -24,15 +25,8 @@ public class Ground extends JPanel{
     }
 
     public void tick() {
-        for(Component c : getComponents()) {
-            if(c instanceof Growable) {
-                if(((Growable) c).getState() == 4) {
-                    //System.out.println("Removing");
-                    remove(c);
-                    revalidate();
-                    repaint();
-                }
-            }
+        for(Growable g : getGrowables()) {
+            g.tick();
         }
     }
 

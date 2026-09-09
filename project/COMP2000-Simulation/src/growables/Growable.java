@@ -8,5 +8,6 @@ public interface Growable {
     public boolean isColliding();
     public int getState();
     public void increaseSpreadNum(double factor);
+    public void tick();
     //public void kill();
 }

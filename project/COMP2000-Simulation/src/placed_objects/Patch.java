@@ -15,7 +15,7 @@ public class Patch<T extends Growable> extends JPanel implements Observer{
     Container parent;  //A patch can only be placed on the ground
     ArrayList<T> collection;
     
-    Patch(int radius, Point position) {
+    public Patch(int radius, Point position) {
         patchArea = new Radius(position, radius);
 
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -41,7 +41,7 @@ public class Patch<T extends Growable> extends JPanel implements Observer{
         //Check 
     }
 
-    void addToPatch(T item) throws OutOfPatchBoundsException {
+    public void addToPatch(T item) throws OutOfPatchBoundsException {
         if(patchArea.isPointInRadius(item.getPosition())) {
             collection.add(item);
         } else {

@@ -1,8 +1,11 @@
-package placed_objects;
+package supplementary;
 import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.*;
+
+import placed_objects.Ground;
+import placed_objects.Sky;
 
 public class Window extends JFrame{
     //Window of the application
@@ -15,7 +18,7 @@ public class Window extends JFrame{
 
     Timer timer;
 
-    Window() {
+    public Window() {
         sky = new Sky();
         ground = new Ground();
 

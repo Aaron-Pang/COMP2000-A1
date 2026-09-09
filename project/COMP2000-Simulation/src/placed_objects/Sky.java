@@ -1,6 +1,7 @@
 package placed_objects;
 import java.awt.*;
 import javax.swing.JPanel;
+import supplementary.Window;
 
 public class Sky extends JPanel{
     public static final int SUNNY = 0;

@@ -1,29 +1,24 @@
 package growables;
-import java.awt.*;
-
 import exceptions.InvalidPositionException;
-import placed_objects.Window;
+import java.awt.*;
 import supplementary.Radius;
+import supplementary.Window;
 
 public class Sunflower extends Flower{
 
     int spreadNum = 1;
-    int growthDelay = 5000;
+    static final int growthDelay = 3000;
     static final int size = 50;
 
-    Sunflower(Point position) {
-        super(position, 3000, size);
-        this.position = position;
-        if(position.x > Window.WIN_WIDTH || position.x < 0 || position.y < 0 || position.y > Window.WIN_HEIGHT/4*3) {
-            throw new InvalidPositionException("Position: " + position.x + ", " + position.y);
-        }
+    public Sunflower(Point position) {
+        super(position, growthDelay, size);
 
         //Check if very close to another plant. If so, immediately die.
         //TODO
     }
 
     Sunflower(Point position, double growthFactor) {
-        super(position, (int) (3000 / growthFactor), size); //grow at a different rate relative to standard sunflower
+        super(position, (int) (growthDelay / growthFactor), size); //grow at a different rate relative to standard sunflower
         this.position = position;
     }
 

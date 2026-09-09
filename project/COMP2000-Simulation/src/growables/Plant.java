@@ -3,14 +3,19 @@ import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.*;
+import java.time.*;
+
+import exceptions.InvalidPositionException;
+import supplementary.Window;
 
 abstract class Plant extends JPanel implements Growable {
-    static final int SEED = 0;
-    static final int SEEDLING = 1;
-    static final int JUVENILE = 2;
-    static final int ADULT = 3;
-    static final int DEAD = 4;
+    static final int SEED = 1;
+    static final int SEEDLING = 2;
+    static final int JUVENILE = 3;
+    static final int ADULT = 4;
+    static final int DEAD = 5;
     
+    Instant startTime;
     int growthState = SEED;
     int size = 60;
     Point position;
@@ -20,11 +25,18 @@ abstract class Plant extends JPanel implements Growable {
     int spreadRadius;     //How far a plant can spread its seeds
     Timer timer;
 
-    Plant(Point p, int growthDelay, int size) {
-        //These numbers are all arbitrary placeholders for now
-        //spreadNum = 2;
+    public Plant(Point p, int growthDelay, int size) {
+        startTime = Instant.now();
+        position = p;
         spreadRadius = 100;
+        if(position == null) {
+            throw new InvalidPositionException("Position is null");
+        } else if (position.x > Window.WIN_WIDTH || position.x < 0 || position.y < 0 || position.y > Window.WIN_HEIGHT/4*3) {
+            throw new InvalidPositionException("Position: " + position.x + ", " + position.y);
+        }
         this.growthDelay = growthDelay;
+
+        /*
         timer = new Timer();
         TimerTask grow = new TimerTask() {
             @Override
@@ -39,9 +51,11 @@ abstract class Plant extends JPanel implements Growable {
                 tick();
             }
         };
+        
 
         timer.schedule(grow, growthDelay, growthDelay);
         timer.schedule(tick, 25, 25);
+        */
 
         this.position = p;
         this.setBounds(position.x, position.y, size, size);
@@ -51,7 +65,32 @@ abstract class Plant extends JPanel implements Growable {
     //All plants will have these stages. The ___Action() methods allow each phase
     //to be customised per specific plant.
     public void tick() {
-        switch(growthState) {
+        Instant now = Instant.now();
+        int lifespan = (int) (Duration.between(startTime, now)).toMillis();
+
+        if(lifespan < growthDelay * SEED) {
+            this.setBackground(new Color(79, 46, 9));
+            seedAction();
+        } else if(lifespan < growthDelay * SEEDLING) {
+            this.setBackground(new Color(2, 184, 9));
+            seedlingAction();
+        } else if(lifespan < growthDelay * JUVENILE) {
+            this.setBackground(new Color(1, 120, 5));
+            juvenileAction();
+        } else if(lifespan < growthDelay * ADULT) {
+            this.setBackground(new Color(1, 71, 4));
+            adultAction();
+        } else {
+            this.setBackground(Color.BLACK);
+            Container parent = this.getParent();
+            parent.remove(this);
+            parent.revalidate();
+            parent.repaint();
+            deadAction();
+        }
+
+        /*
+        switch(lifespan) {
             case SEED:
                 this.setBackground(new Color(79, 46, 9));
                 seedAction();
@@ -74,6 +113,7 @@ abstract class Plant extends JPanel implements Growable {
                 deadAction();
                 break;
         }
+        */
     }
 
     //Progress the lifespan of the plant
