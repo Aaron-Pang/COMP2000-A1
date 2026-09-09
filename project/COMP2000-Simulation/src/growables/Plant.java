@@ -1,7 +1,5 @@
 package growables;
 import java.awt.*;
-import java.util.Timer;
-import java.util.TimerTask;
 import javax.swing.*;
 import java.time.*;
 
@@ -23,7 +21,6 @@ abstract class Plant extends JPanel implements Growable {
     int spreadNum;        //Max number of seeds a plant can produce
     int growthDelay;      //How long between growth states in milliseconds
     int spreadRadius;     //How far a plant can spread its seeds
-    Timer timer;
 
     public Plant(Point p, int growthDelay, int size) {
         startTime = Instant.now();
@@ -35,27 +32,6 @@ abstract class Plant extends JPanel implements Growable {
             throw new InvalidPositionException("Position: " + position.x + ", " + position.y);
         }
         this.growthDelay = growthDelay;
-
-        /*
-        timer = new Timer();
-        TimerTask grow = new TimerTask() {
-            @Override
-            public void run() {
-                grow();
-            }
-        };
-
-        TimerTask tick = new TimerTask() {
-            @Override
-            public void run() {
-                tick();
-            }
-        };
-        
-
-        timer.schedule(grow, growthDelay, growthDelay);
-        timer.schedule(tick, 25, 25);
-        */
 
         this.position = p;
         this.setBounds(position.x, position.y, size, size);
@@ -88,35 +64,10 @@ abstract class Plant extends JPanel implements Growable {
             parent.repaint();
             deadAction();
         }
-
-        /*
-        switch(lifespan) {
-            case SEED:
-                this.setBackground(new Color(79, 46, 9));
-                seedAction();
-                break;
-            case SEEDLING:
-                this.setBackground(new Color(2, 184, 9));
-                seedlingAction();
-                break;
-            case JUVENILE:
-                this.setBackground(new Color(1, 120, 5));
-                juvenileAction();
-                break;
-            case ADULT:
-                this.setBackground(new Color(1, 71, 4));
-                adultAction();
-                break;
-            case DEAD:
-                this.setBackground(Color.BLACK);
-                timer.cancel();
-                deadAction();
-                break;
-        }
-        */
     }
 
     //Progress the lifespan of the plant
+    @Override
     public void grow() {
         if (growthState < DEAD){
             growthState++;
