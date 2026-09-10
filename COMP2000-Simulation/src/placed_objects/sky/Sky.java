@@ -39,6 +39,10 @@ public class Sky extends JPanel implements SkySubject{
         repaint();
     }
 
+    public String getState() {
+        return state.getName();
+    }
+
     @Override
     public void registerObserver(SkyObserver o) {
         observers.add(o);

@@ -19,10 +19,14 @@ public class SunflowerBloomState implements PlantState{
 
     @Override
     public void checkChange(long lifespan) {
-        if(lifespan > flower.growthDelay * 4) {     //TODO: If night, stop blooming
+        if(lifespan > flower.growthDelay * 6) {     //TODO: If night, stop blooming
             flower.state = flower.deadState;
+        } else if(flower.environmentState.equals("SUNNY")) {
+            flower.bloom();
+        } else {
+            flower.state = flower.adultState;
         }
-        flower.bloom();
+        
     }
 
     @Override

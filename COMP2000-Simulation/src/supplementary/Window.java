@@ -53,6 +53,11 @@ public class Window extends JFrame{
 
     //Sky will deal with it's own components, so anything added to the window 
     //must be added to the ground.
+
+    public Sky getSky() {
+        return sky;
+    }
+
     public void addToGround(Component comp) {
         ground.add(comp);
     }
