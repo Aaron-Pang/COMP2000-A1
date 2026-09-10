@@ -6,6 +6,7 @@ import javax.swing.*;
 import supplementary.Window;
 
 abstract class Plant extends JPanel implements Growable {
+    //TODO: Replace with state pattern
     static final int SEED = 1;
     static final int SEEDLING = 2;
     static final int JUVENILE = 3;

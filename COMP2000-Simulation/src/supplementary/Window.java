@@ -4,7 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.*;
 import placed_objects.Ground;
-import placed_objects.Sky;
+import placed_objects.sky.Sky;
 
 public class Window extends JFrame{
     //Window of the application
