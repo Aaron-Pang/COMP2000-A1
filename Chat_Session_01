@@ -1,3 +1,0 @@
-alliecat@Spock: hey everyone, this is Alexandra from the COMP2000 group! When chatting via Github, remember this is a public git repo and thus OPSEC should be respected. To chat, just add a new line to this file and push to git@github,com:AlexandraShebang/chat_server_macU. Make sure you have generated SSH keys via the ssh-keygen command and added them to your github account to ensure authentication. 
-
-alliecat@Spock: do not use the atlassian git tutorial, it's corpoglazing slop. Just a heads up. 
