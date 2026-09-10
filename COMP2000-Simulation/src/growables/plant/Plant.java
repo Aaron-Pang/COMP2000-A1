@@ -1,26 +1,27 @@
-package growables;
+package growables.plant;
 import exceptions.InvalidPositionException;
+import growables.Growable;
 import java.awt.*;
 import java.time.*;
 import javax.swing.*;
 import supplementary.Window;
 
-abstract class Plant extends JPanel implements Growable {
+public abstract class Plant extends JPanel implements Growable{
     //TODO: Replace with state pattern
-    static final int SEED = 1;
-    static final int SEEDLING = 2;
-    static final int JUVENILE = 3;
-    static final int ADULT = 4;
-    static final int DEAD = 5;
+    public static final int SEED = 1;
+    public static final int SEEDLING = 2;
+    public static final int JUVENILE = 3;
+    public static final int ADULT = 4;
+    public static final int DEAD = 5;
     
     Instant startTime;
-    int growthState = SEED;
-    int size = 60;
-    Point position;
+    public int growthState = SEED;
+    public int size = 60;
+    public Point position;
 
     int spreadNum;        //Max number of seeds a plant can produce
     int growthDelay;      //How long between growth states in milliseconds
-    int spreadRadius;     //How far a plant can spread its seeds
+    public int spreadRadius;     //How far a plant can spread its seeds
 
     public Plant(Point p, int growthDelay, int size) {
         startTime = Instant.now();
@@ -74,11 +75,11 @@ abstract class Plant extends JPanel implements Growable {
         }
     }
 
-    abstract void seedAction();
-    abstract void seedlingAction();
-    abstract void juvenileAction();
-    abstract void adultAction();
-    abstract void deadAction();
+    public abstract void seedAction();
+    public abstract void seedlingAction();
+    public abstract void juvenileAction();
+    public abstract void adultAction();
+    public abstract void deadAction();
 
     @Override
     public Point getPosition() {

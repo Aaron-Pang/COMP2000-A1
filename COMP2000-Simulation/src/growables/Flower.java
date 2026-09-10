@@ -1,6 +1,8 @@
 package growables;
 import java.awt.*;
 
+import growables.plant.Plant;
+
 abstract class Flower extends Plant {
     Flower(Point p, int growthDelay, int size) {
         super(p, growthDelay, size);

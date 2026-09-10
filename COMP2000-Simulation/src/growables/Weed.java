@@ -1,5 +1,7 @@
 package growables;
 import exceptions.InvalidPositionException;
+import growables.plant.Plant;
+
 import java.awt.*;
 import java.util.Random;
 import javax.swing.BorderFactory;

@@ -24,6 +24,7 @@ public class SunnyState implements SkyState{
         if(sky.hour >= 12000) {
             //Change to night
             sky.state = sky.nightState;
+            sky.notifyObservers();
         }
     }
 

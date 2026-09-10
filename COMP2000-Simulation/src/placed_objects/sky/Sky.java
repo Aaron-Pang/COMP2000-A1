@@ -6,17 +6,6 @@ import javax.swing.JPanel;
 import supplementary.Window;
 
 public class Sky extends JPanel implements SkySubject{
-    //TODO: Replace with state pattern
-    public static final int SUNNY = 0;
-    public static final int CLOUDY = 1;
-    public static final int OVERCAST = 2;
-    public static final int RAINY = 3;
-
-    public static final int DAWN = 0;
-    public static final int DAY = 1;
-    public static final int DUSK = 2;
-    public static final int NIGHT = 3;
-
     SkyState sunnyState;
     SkyState nightState;
 
@@ -48,14 +37,17 @@ public class Sky extends JPanel implements SkySubject{
         repaint();
     }
 
+    @Override
     public void registerObserver(SkyObserver o) {
         observers.add(o);
     }
 
+    @Override
     public void removeObserver(SkyObserver o) {
         observers.remove(o);
     }
 
+    @Override
     public void notifyObservers() {
         for(SkyObserver o : observers) {
             o.update(state.getName(), hour);
@@ -66,12 +58,6 @@ public class Sky extends JPanel implements SkySubject{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         state.paintComponent(g);
-    }
-
-    public void changeWeather(int newWeather) {
-        if(newWeather >= DAWN && newWeather <= NIGHT) {
-            weatherState = newWeather;
-        }
     }
 
     public void progressTime() {
