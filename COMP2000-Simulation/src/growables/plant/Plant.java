@@ -4,9 +4,11 @@ import growables.Growable;
 import java.awt.*;
 import java.time.*;
 import javax.swing.*;
+import placed_objects.sky.Sky;
+import placed_objects.sky.SkyObserver;
 import supplementary.Window;
 
-public abstract class Plant extends JPanel implements Growable{
+public abstract class Plant extends JPanel implements Growable, SkyObserver{
     public PlantState seedState;
     public PlantState seedlingState;
     public PlantState juvenileState;
@@ -22,7 +24,7 @@ public abstract class Plant extends JPanel implements Growable{
     public int growthDelay;      //How long between growth states in milliseconds
     public int spreadRadius;     //How far a plant can spread its seeds
 
-    public Plant(Point p, int growthDelay, int size) {
+    public Plant(Point p, int growthDelay, int size, Sky sky) {
         seedState = new SeedState(this);
         seedlingState = new SeedlingState(this);
         juvenileState = new JuvenileState(this);
@@ -30,6 +32,8 @@ public abstract class Plant extends JPanel implements Growable{
         deadState = new DeadState(this);
 
         state = seedState;
+
+        sky.registerObserver(this);
 
         startTime = Instant.now();
         position = p;

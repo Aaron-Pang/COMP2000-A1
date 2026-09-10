@@ -70,7 +70,6 @@ public class Weed extends Plant {
         spreadNum = (int) factor * spreadNum;
     }
 
-
     @Override
     public void spread() {
         //Radius radius = new Radius(position, spreadRadius);

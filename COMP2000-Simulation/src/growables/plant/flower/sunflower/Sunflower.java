@@ -3,14 +3,15 @@ import exceptions.InvalidPositionException;
 import growables.plant.flower.*;
 import java.awt.*;
 import supplementary.Radius;
+import placed_objects.sky.Sky;
 
 public class Sunflower extends Flower {
     int spreadNum = 1;
     static final int growthDelay = 3000;
     static final int size = 50;
 
-    public Sunflower(Point position) {
-        super(position, growthDelay, size);
+    public Sunflower(Point position, Sky sky) {
+        super(position, growthDelay, size, sky);
 
         super.seedState = new SunflowerSeedState(this);
         super.juvenileState = new SunflowerJuvenileState(this);
@@ -34,6 +35,11 @@ public class Sunflower extends Flower {
         if ((int) (Math.random() * 100) == 0) {
             spread();
         }
+    }
+
+    @Override
+    public void update(String time, int timestamp){
+
     }
 
     @Override
