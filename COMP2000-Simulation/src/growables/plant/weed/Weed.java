@@ -1,4 +1,4 @@
-package growables;
+package growables.plant.weed;
 import exceptions.InvalidPositionException;
 import growables.plant.Plant;
 

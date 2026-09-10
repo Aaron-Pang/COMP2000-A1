@@ -1,5 +1,7 @@
-package growables;
+package growables.plant.flower.sunflower;
 import exceptions.InvalidPositionException;
+import growables.plant.flower.Flower;
+
 import java.awt.*;
 import supplementary.Radius;
 import supplementary.Window;
@@ -41,11 +43,6 @@ public class Sunflower extends Flower{
     }
 
     @Override
-    public void seedlingAction() {
-
-    }
-
-    @Override
     public void juvenileAction() {
         this.setBounds(position.x-size/4, position.y-size/4, size/2, size/2);
     }
@@ -54,11 +51,6 @@ public class Sunflower extends Flower{
     public void adultAction() {
         bloom();
         this.setBounds(position.x-size/2, position.y-size/2, size, size);
-    }
-
-    @Override
-    public void deadAction() {
-
     }
 
     @Override

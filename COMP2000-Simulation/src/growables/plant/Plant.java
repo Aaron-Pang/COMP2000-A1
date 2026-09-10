@@ -7,15 +7,15 @@ import javax.swing.*;
 import supplementary.Window;
 
 public abstract class Plant extends JPanel implements Growable{
-    //TODO: Replace with state pattern
-    public static final int SEED = 1;
-    public static final int SEEDLING = 2;
-    public static final int JUVENILE = 3;
-    public static final int ADULT = 4;
-    public static final int DEAD = 5;
+    PlantState seedState;
+    PlantState seedlingState;
+    PlantState juvenileState;
+    PlantState adultState;
+    PlantState deadState;
+
+    PlantState state;
     
     Instant startTime;
-    public int growthState = SEED;
     public int size = 60;
     public Point position;
 
@@ -24,6 +24,12 @@ public abstract class Plant extends JPanel implements Growable{
     public int spreadRadius;     //How far a plant can spread its seeds
 
     public Plant(Point p, int growthDelay, int size) {
+        seedState = new SeedState(this);
+        seedlingState = new SeedlingState(this);
+        juvenileState = new JuvenileState(this);
+        adultState = new AdultState(this);
+        deadState = new DeadState(this);
+
         startTime = Instant.now();
         position = p;
         spreadRadius = 100;
@@ -45,50 +51,30 @@ public abstract class Plant extends JPanel implements Growable{
         Instant now = Instant.now();
         long lifespan = (Duration.between(startTime, now)).toMillis();
 
-        if(lifespan < growthDelay * SEED) {
-            this.setBackground(new Color(79, 46, 9));
-            seedAction();
-        } else if(lifespan < growthDelay * SEEDLING) {
-            this.setBackground(new Color(2, 184, 9));
-            seedlingAction();
-        } else if(lifespan < growthDelay * JUVENILE) {
-            this.setBackground(new Color(1, 120, 5));
-            juvenileAction();
-        } else if(lifespan < growthDelay * ADULT) {
-            this.setBackground(new Color(1, 71, 4));
-            adultAction();
-        } else {
-            this.setBackground(Color.BLACK);
-            Container parent = this.getParent();
-            parent.remove(this);
-            parent.revalidate();
-            parent.repaint();
-            deadAction();
-        }
+        state.checkChange(lifespan);
     }
 
-    //Progress the lifespan of the plant
     @Override
-    public void grow() {
-        if (growthState < DEAD){
-            growthState++;
-        }
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        state.paintComponent(g);
     }
 
-    public abstract void seedAction();
-    public abstract void seedlingAction();
-    public abstract void juvenileAction();
-    public abstract void adultAction();
-    public abstract void deadAction();
+    public void delete() {
+        Container parent = this.getParent();
+        parent.remove(this);
+        parent.revalidate();
+        parent.repaint();
+    }
+
+    @Override
+    public String getState() {
+        return state.getName();
+    }
 
     @Override
     public Point getPosition() {
         return position;
-    }
-
-    @Override 
-    public int getState() {
-        return growthState;
     }
 
     //TODO

@@ -1,4 +1,4 @@
-package growables;
+package growables.plant.flower;
 import java.awt.*;
 
 import growables.plant.Plant;
