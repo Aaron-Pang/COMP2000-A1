@@ -12,7 +12,7 @@ public class App {
         Patch<Sunflower> p = new Patch(100, new Point(200, 200));
 
         window.addToGround(p);
-        /*
+        
         Sunflower sf1 = new Sunflower(new Point(200, 200));
         window.addToGround(sf1);
         p.addToPatch(sf1);
@@ -22,6 +22,6 @@ public class App {
         
         window.addToGround(sf2);
         //window.addToGround(w);
-        */
+        
     }
 }

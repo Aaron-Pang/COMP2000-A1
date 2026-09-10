@@ -1,9 +1,10 @@
 package growables.plant.flower;
-import growables.plant.Plant;
+
+import growables.plant.*;
 import java.awt.*;
 
 public abstract class Flower extends Plant {
-    public BloomState bloomState;
+    public PlantState bloomState;
 
     public Flower(Point p, int growthDelay, int size) {
         super(p, growthDelay, size);

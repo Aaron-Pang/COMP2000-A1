@@ -19,8 +19,8 @@ public class SunflowerJuvenileState implements PlantState{
 
     @Override
     public void checkChange(long lifespan) {
-        if(lifespan > flower.growthDelay) {
-            flower.state = flower.seedlingState;
+        if(lifespan > flower.growthDelay * 3) {
+            flower.state = flower.adultState;
         }
     }
 

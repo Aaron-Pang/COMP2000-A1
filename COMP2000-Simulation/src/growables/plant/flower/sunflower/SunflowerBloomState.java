@@ -1,25 +1,25 @@
-package growables.plant.flower;
+package growables.plant.flower.sunflower;
 
 import growables.plant.*;
 import java.awt.*;
 
-public class BloomState implements PlantState{
+public class SunflowerBloomState implements PlantState{
     public static final String name = "BLOOMING";
 
-    Flower flower;
+    Sunflower flower;
 
-    public BloomState(Flower flower) {
+    public SunflowerBloomState(Sunflower flower) {
         this.flower = flower;
     }
 
     @Override
     public void paintComponent(Graphics g) {
-        flower.setBackground(Color.RED);
+        flower.setBackground(Color.YELLOW);
     }
 
     @Override
     public void checkChange(long lifespan) {
-        if(lifespan > flower.growthDelay * 4) {
+        if(lifespan > flower.growthDelay * 4) {     //TODO: If night, stop blooming
             flower.state = flower.deadState;
         }
         flower.bloom();

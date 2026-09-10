@@ -1,19 +1,10 @@
 package growables.plant.flower.sunflower;
 import exceptions.InvalidPositionException;
-import growables.plant.*;
 import growables.plant.flower.*;
 import java.awt.*;
 import supplementary.Radius;
 
 public class Sunflower extends Flower {
-    PlantState seedState;
-    PlantState seedlingState;
-    PlantState juvenileState;
-    PlantState adultState;
-    PlantState deadState;
-
-    PlantState state;
-
     int spreadNum = 1;
     static final int growthDelay = 3000;
     static final int size = 50;
@@ -21,9 +12,12 @@ public class Sunflower extends Flower {
     public Sunflower(Point position) {
         super(position, growthDelay, size);
 
-        seedState = new SunflowerSeedState(this);
-        juvenileState = new SunflowerJuvenileState(this);
-        adultState = new AdultState(this);
+        super.seedState = new SunflowerSeedState(this);
+        super.juvenileState = new SunflowerJuvenileState(this);
+        super.adultState = new SunflowerAdultState(this);
+        super.bloomState = new SunflowerBloomState(this);
+
+        super.state = seedState;
 
         //Check if very close to another plant. If so, immediately die.
         //TODO
