@@ -19,7 +19,7 @@ public class Sky extends JPanel{
     private int weatherState;
     private Instant startTime;
     public long dayTime;
-    public int hour;
+    public int hour;    //Divide by 10 for the hour
 
     public Sky() {
         startTime = Instant.now();
@@ -30,10 +30,9 @@ public class Sky extends JPanel{
     }
 
     public void tick() {
+        //1 real-life second = 1 hour, 1 minute = ~17ms
         dayTime = Duration.between(startTime, Instant.now()).toMillis();
-        hour = (int) ((dayTime % 24000)/1000);
-        //System.out.println(hour);
-        //this.setBackground(new Color(100, 50, 10*hour/1000));
+        hour = (int) ((dayTime % 24000));
         revalidate();
         repaint();
 
@@ -43,9 +42,9 @@ public class Sky extends JPanel{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.YELLOW);
-        double p = (((double) hour)/24);
-        System.out.println(p);
-        g.fillOval((int) (p * (double) Window.WIN_WIDTH), 0, 50, 50);
+        double p = (((double) hour)/24000);
+        System.out.println((int) (p * (double) Window.WIN_WIDTH));
+        g.fillOval((int) (p * (double) Window.WIN_WIDTH) - 50, 0, 50, 50);
     }
 
     public void changeWeather(int newWeather) {

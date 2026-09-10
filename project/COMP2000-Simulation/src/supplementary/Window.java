@@ -3,7 +3,6 @@ import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.*;
-
 import placed_objects.Ground;
 import placed_objects.Sky;
 
@@ -30,7 +29,7 @@ public class Window extends JFrame{
                 sky.tick();
             }
         };
-        timer.schedule(tick, 25, 25);
+        timer.schedule(tick, 20, 20);
 
         //Basic window props
         this.setTitle("GAASK Plant Simulation COMP2000");
