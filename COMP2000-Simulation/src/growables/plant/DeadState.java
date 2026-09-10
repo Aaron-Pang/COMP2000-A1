@@ -18,7 +18,7 @@ public class DeadState implements PlantState{
 
     @Override
     public void checkChange(long lifespan) {
-        if(lifespan < plant.growthDelay * 5) {
+        if(lifespan > plant.growthDelay * 5) {
             //Delete plant
             plant.delete();
         }

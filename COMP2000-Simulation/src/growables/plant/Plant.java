@@ -19,7 +19,6 @@ public abstract class Plant extends JPanel implements Growable{
     public int size = 60;
     public Point position;
 
-    int spreadNum;        //Max number of seeds a plant can produce
     public int growthDelay;      //How long between growth states in milliseconds
     public int spreadRadius;     //How far a plant can spread its seeds
 
@@ -29,6 +28,8 @@ public abstract class Plant extends JPanel implements Growable{
         juvenileState = new JuvenileState(this);
         adultState = new AdultState(this);
         deadState = new DeadState(this);
+
+        state = seedState;
 
         startTime = Instant.now();
         position = p;
@@ -45,13 +46,14 @@ public abstract class Plant extends JPanel implements Growable{
         this.setBackground(Color.darkGray);
     }
 
-    //All plants will have these stages. The ___Action() methods allow each phase
-    //to be customised per specific plant.
+    @Override
     public void tick() {
         Instant now = Instant.now();
         long lifespan = (Duration.between(startTime, now)).toMillis();
 
         state.checkChange(lifespan);
+        revalidate();
+        repaint();
     }
 
     @Override
@@ -83,6 +85,7 @@ public abstract class Plant extends JPanel implements Growable{
         return false;
     }
 
+    @Override
     public String toString() {
         return "Replace this function";
     }

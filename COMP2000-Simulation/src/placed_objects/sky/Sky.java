@@ -24,6 +24,8 @@ public class Sky extends JPanel implements SkySubject{
         nightState = new NightState(this);
         state = sunnyState;
 
+        observers = new ArrayList();
+
         startTime = Instant.now();
         this.setPreferredSize(new Dimension(Window.WIN_WIDTH, Window.WIN_HEIGHT/4));
     }

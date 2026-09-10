@@ -1,7 +1,7 @@
 package growables.plant.flower;
 
-import java.awt.*;
 import growables.plant.*;
+import java.awt.*;
 
 public class BloomState implements PlantState{
     public static final String name = "BLOOMING";
@@ -19,7 +19,7 @@ public class BloomState implements PlantState{
 
     @Override
     public void checkChange(long lifespan) {
-        if(lifespan < flower.growthDelay * 4) {
+        if(lifespan > flower.growthDelay * 4) {
             flower.state = flower.deadState;
         }
     }

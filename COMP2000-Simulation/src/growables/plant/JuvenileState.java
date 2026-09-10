@@ -18,7 +18,7 @@ public class JuvenileState implements PlantState{
 
     @Override
     public void checkChange(long lifespan) {
-        if(lifespan < plant.growthDelay * 3) {
+        if(lifespan > plant.growthDelay * 3) {
             plant.state = plant.adultState;
         }
     }
