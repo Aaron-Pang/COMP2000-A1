@@ -1,11 +1,13 @@
 package growables.plant.flower;
+import growables.plant.Plant;
 import java.awt.*;
 
-import growables.plant.Plant;
-
 abstract class Flower extends Plant {
-    Flower(Point p, int growthDelay, int size) {
+    public BloomState bloomState;
+
+    public Flower(Point p, int growthDelay, int size) {
         super(p, growthDelay, size);
+        bloomState = new BloomState(this);
     }
 
     public void bloom(){    //Display the flower blooming
@@ -13,11 +15,5 @@ abstract class Flower extends Plant {
         if ((int) (Math.random() * 100) == 0) {
             spread();
         }
-    }  
-
-    //Flowers will always bloom when they are adults
-    @Override
-    public void adultAction() {
-        bloom();
     }
 }

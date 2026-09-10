@@ -7,20 +7,20 @@ import javax.swing.*;
 import supplementary.Window;
 
 public abstract class Plant extends JPanel implements Growable{
-    PlantState seedState;
-    PlantState seedlingState;
-    PlantState juvenileState;
-    PlantState adultState;
-    PlantState deadState;
+    public PlantState seedState;
+    public PlantState seedlingState;
+    public PlantState juvenileState;
+    public PlantState adultState;
+    public PlantState deadState;
 
-    PlantState state;
+    public PlantState state;
     
     Instant startTime;
     public int size = 60;
     public Point position;
 
     int spreadNum;        //Max number of seeds a plant can produce
-    int growthDelay;      //How long between growth states in milliseconds
+    public int growthDelay;      //How long between growth states in milliseconds
     public int spreadRadius;     //How far a plant can spread its seeds
 
     public Plant(Point p, int growthDelay, int size) {
