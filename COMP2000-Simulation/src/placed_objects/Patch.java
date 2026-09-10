@@ -6,10 +6,9 @@ import javax.swing.*;
 import exceptions.InvalidParentException;
 import exceptions.OutOfPatchBoundsException;
 import growables.Growable;
-import supplementary.Observer;
 import supplementary.Radius;
 
-public class Patch<T extends Growable> extends JPanel implements Observer{
+public class Patch<T extends Growable> extends JPanel{
     //Within a small area, growable objects of type T are more likely to spread seeds
     Radius patchArea;
     Container parent;  //A patch can only be placed on the ground
@@ -36,11 +35,6 @@ public class Patch<T extends Growable> extends JPanel implements Observer{
         }
     }
 
-    @Override
-    public void update() {
-        //Check 
-    }
-
     public void addToPatch(T item) throws OutOfPatchBoundsException {
         if(patchArea.isPointInRadius(item.getPosition())) {
             collection.add(item);
@@ -64,16 +58,4 @@ public class Patch<T extends Growable> extends JPanel implements Observer{
         }
         return items;
     }
-
-    /*
-    void killInArea() {
-        ArrayList<Growable> items = getObjectsInRadius();
-        for(Growable g : items) {
-            if(patchArea.isPointInRadius(g.getPosition())) {
-                g.kill();
-            }
-        }
-    }
-    */
-
 }

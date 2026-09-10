@@ -10,10 +10,10 @@ public class Window extends JFrame{
     //Window of the application
     //Defines screenspace
 
-    public static int WIN_WIDTH = 800;
-    public static int WIN_HEIGHT = 600;
-    private final Sky sky; //changed to final - Allie
-    private final Ground ground; //changed to final - Allie
+    public static int WIN_WIDTH = 1200;
+    public static int WIN_HEIGHT = 900;
+    private final Sky sky;
+    private final Ground ground;
 
     Timer timer;
 
@@ -36,7 +36,7 @@ public class Window extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //Exit appliction when x pressed
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.setLayout(new GridBagLayout());
+        this.setLayout(new GridBagLayout());    //Main window only contains sky and ground
 
         //Keep the main sky and ground in a single column
         GridBagConstraints c = new GridBagConstraints();

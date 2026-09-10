@@ -1,10 +1,12 @@
 package placed_objects.sky;
 import java.awt.*;
 import java.time.*;
+import java.util.ArrayList;
 import javax.swing.JPanel;
+
 import supplementary.Window;
 
-public class Sky extends JPanel{
+public class Sky extends JPanel implements SkySubject{
     //TODO: Replace with state pattern
     public static final int SUNNY = 0;
     public static final int CLOUDY = 1;
@@ -26,6 +28,8 @@ public class Sky extends JPanel{
     public long dayTime;
     public int hour;    //Divide by 1000 for the hour
 
+    private ArrayList<SkyObserver> observers;
+
     public Sky() {
         sunnyState = new SunnyState(this);
         state = sunnyState;
@@ -40,6 +44,20 @@ public class Sky extends JPanel{
         hour = (int) ((dayTime % 24000));
         revalidate();
         repaint();
+    }
+
+    public void registerObserver(SkyObserver o) {
+        observers.add(o);
+    }
+
+    public void removeObserver(SkyObserver o) {
+        observers.remove(o);
+    }
+
+    public void notifyObservers() {
+        for(SkyObserver o : observers) {
+            o.update(state.getName(), hour);
+        }
     }
 
     @Override
