@@ -1,4 +1,15 @@
-chatserver
-hi there
+COMP2000 SIMULATION PROJECT - AARON PANG 49071378
 
+This project aims to demonstrate the object-oriented programming practices described in COMP2000.
 
+The simulation is a small meadow containing a number of different plants, which grow and spread
+in different ways depending on the time of day, weather, and other types of plants around.
+
+Plants can be added to "Patch"es of their type, which are groups that are more fertile than
+other plants. These are currently represented with a square border on the ground.
+
+Sunflowers begin as small seeds and grow larger, represented by yellow boxes. They spread in a
+radius around themselves.
+
+Weeds are small but grow and spread fast in a single direction. Individal plants are small and
+have a linear growth pattern.

@@ -70,22 +70,6 @@ public class Weed extends Plant {
         spreadNum = (int) factor * spreadNum;
     }
 
-    @Override
-    public void seedAction() {
-    }
-
-    @Override
-    public void seedlingAction() {
-    }
-
-    @Override
-    public void juvenileAction() {
-    }
-
-    @Override
-    public void deadAction() {
-        
-    }
 
     @Override
     public void spread() {
