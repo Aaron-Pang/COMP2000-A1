@@ -15,7 +15,7 @@ public class NightState implements SkyState {
     public void paintComponent(Graphics g) {
         sky.setBackground(Color.BLACK);
         g.setColor(Color.WHITE);
-        double p = (((double) sky.hour)/12000);
+        double p = (((double) sky.hour)/12000) - 1;
         g.fillOval((int) (p * (double) Window.WIN_WIDTH) - 50, 0, 50, 50);
     }
 
