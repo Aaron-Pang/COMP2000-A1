@@ -3,7 +3,6 @@ import java.awt.*;
 import java.time.*;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-
 import supplementary.Window;
 
 public class Sky extends JPanel implements SkySubject{
@@ -19,6 +18,7 @@ public class Sky extends JPanel implements SkySubject{
     public static final int NIGHT = 3;
 
     SkyState sunnyState;
+    SkyState nightState;
 
     SkyState state;
 
@@ -32,6 +32,7 @@ public class Sky extends JPanel implements SkySubject{
 
     public Sky() {
         sunnyState = new SunnyState(this);
+        nightState = new NightState(this);
         state = sunnyState;
 
         startTime = Instant.now();
@@ -42,6 +43,7 @@ public class Sky extends JPanel implements SkySubject{
         //1 real-life second = 1 hour, 1 minute = ~17ms
         dayTime = Duration.between(startTime, Instant.now()).toMillis();
         hour = (int) ((dayTime % 24000));
+        state.checkChange();
         revalidate();
         repaint();
     }
