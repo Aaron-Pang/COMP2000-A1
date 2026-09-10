@@ -1,9 +1,8 @@
 package growables;
-import java.awt.*;
-import javax.swing.*;
-import java.time.*;
-
 import exceptions.InvalidPositionException;
+import java.awt.*;
+import java.time.*;
+import javax.swing.*;
 import supplementary.Window;
 
 abstract class Plant extends JPanel implements Growable {
@@ -42,7 +41,7 @@ abstract class Plant extends JPanel implements Growable {
     //to be customised per specific plant.
     public void tick() {
         Instant now = Instant.now();
-        int lifespan = (int) (Duration.between(startTime, now)).toMillis();
+        long lifespan = (Duration.between(startTime, now)).toMillis();
 
         if(lifespan < growthDelay * SEED) {
             this.setBackground(new Color(79, 46, 9));

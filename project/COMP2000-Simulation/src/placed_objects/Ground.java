@@ -19,7 +19,6 @@ public class Ground extends JPanel{
             @Override
             public void componentAdded(ContainerEvent e) {
                 //Notify observers
-                
             }
         });
     }
