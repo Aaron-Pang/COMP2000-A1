@@ -33,8 +33,6 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
 
         state = seedState;
 
-        sky.registerObserver(this);
-
         startTime = Instant.now();
         position = p;
         spreadRadius = 100;
@@ -48,6 +46,7 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
         this.position = p;
         this.setBounds(position.x, position.y, size, size);
         this.setBackground(Color.darkGray);
+        sky.registerObserver(this);
     }
 
     @Override

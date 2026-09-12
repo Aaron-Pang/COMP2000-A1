@@ -23,7 +23,7 @@ public class SunflowerAdultState implements PlantState{
         //If day and adult, set state to blooming
         if(lifespan > flower.growthDelay * 6) {
             flower.state = flower.deadState;
-        } else if(flower.environmentState.equals("SUNNY")){    //TODO: Change condition to only bloom at night usisng observer
+        } else if(flower.environmentState.equals("SUNNY")){
             flower.state = flower.bloomState;
         }
     }
