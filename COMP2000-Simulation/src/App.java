@@ -17,8 +17,8 @@ public class App {
         window.addToGround(sf1);
         p.addToPatch(sf1);
 
-        Sunflower sf2 = new Sunflower(new Point(650, 300), window.getSky());
-        Weed w = new Weed(new Point(350, 300), window.getSky());
+        Sunflower sf2 = new Sunflower(new Point(1000, 500), window.getSky());
+        Weed w = new Weed(new Point(600, 350), window.getSky());
         
         window.addToGround(sf2);
         window.addToGround(w);

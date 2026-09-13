@@ -11,11 +11,11 @@ import supplementary.Window;
 public class Weed extends Plant {
 
     int spreadNum = 1;
-    int spreadRadius = 30;
     static final int growthDelay = 1000;
     static final int size = 10;
     String environmentState;
     Sky sky;
+    public boolean spent = false;
 
     Direction direction;
     Random random;
@@ -57,12 +57,6 @@ public class Weed extends Plant {
         environmentState = timeState;
     }
 
-    public void grow() {
-        if ((int) (Math.random() * 3) == 0) {
-            state = deadState;
-        }
-    }
-
     @Override
     public void increaseSpreadNum(double factor) {
         spreadNum = (int) factor * spreadNum;
@@ -70,26 +64,23 @@ public class Weed extends Plant {
 
     @Override
     public void spread() {
-        //Radius radius = new Radius(position, spreadRadius);
+        if(spent) {
+            return;
+        }
+
         for(int i = 0; i < spreadNum; i++) {
-            int newX = position.x + direction.dx;
-            int newY = position.y + direction.dy;
+            int newX = position.x + direction.dx + random.nextInt(-2, 2);
+            int newY = position.y + direction.dy + random.nextInt(-2, 2);
             try {
-                System.out.println("Adding new weed");
                 Point newPoint = new Point(newX, newY);
                 getParent().add(new Weed(newPoint, direction, sky));
-                grow();
+                spent = true;
             } catch(InvalidPositionException p) {
                 System.out.println("Stopped OOB Weed");
-                die();
             } catch(Exception e) {
                 System.out.println("Could not create weed");
             }
         }
-    }
-
-    public void die() {
-        state = deadState;
     }
 
     public String toString() {
