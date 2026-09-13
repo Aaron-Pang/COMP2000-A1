@@ -7,6 +7,7 @@ import java.util.Random;
 import javax.swing.BorderFactory;
 import supplementary.Direction;
 import supplementary.Window;
+import placed_objects.sky.Sky;
 
 public class Weed extends Plant {
 
@@ -18,8 +19,8 @@ public class Weed extends Plant {
     Direction direction;
     Random random;
 
-    public Weed(Point position) {
-        super(position, growthDelay, size);
+    public Weed(Point position, Sky sky) {
+        super(position, growthDelay, size, sky);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         
 
@@ -30,8 +31,8 @@ public class Weed extends Plant {
         //TODO
     }
 
-    Weed(Point position, Direction direction) {
-        super(position, growthDelay, size);
+    Weed(Point position, Direction direction, Sky sky) {
+        super(position, growthDelay, size, sky);
         this.position = position;
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         if(position.x > Window.WIN_WIDTH || position.x < 0 || position.y < 0 || position.y > Window.WIN_HEIGHT/4*3) {
@@ -44,8 +45,8 @@ public class Weed extends Plant {
         //TODO
     }
 
-    Weed(Point position, double growthFactor) {
-        super(position, (int) (growthDelay / growthFactor), size); //grow at a different rate relative to standard sunflower
+    Weed(Point position, double growthFactor, Sky sky) {
+        super(position, (int) (growthDelay / growthFactor), size, sky); //grow at a different rate relative to standard sunflower
         this.position = position;
     }
 
@@ -80,7 +81,7 @@ public class Weed extends Plant {
             //int newY = position.y + direction.dy;
             try {
                 Point newPoint = new Point(newX, newY);
-                getParent().add(new Weed(newPoint, direction));
+                getParent().add(new Weed(newPoint, direction, sky));
                 grow();
             } catch(InvalidPositionException p) {
                 System.out.println("Stopped OOB Weed");

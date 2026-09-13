@@ -20,6 +20,7 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
     Instant startTime;
     public int size = 60;
     public Point position;
+    public Sky sky;
 
     public int growthDelay;      //How long between growth states in milliseconds
     public int spreadRadius;     //How far a plant can spread its seeds
@@ -33,6 +34,7 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
 
         state = seedState;
 
+        this.sky = sky;
         startTime = Instant.now();
         position = p;
         spreadRadius = 100;
