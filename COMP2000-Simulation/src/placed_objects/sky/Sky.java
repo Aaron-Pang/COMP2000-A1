@@ -11,20 +11,18 @@ public class Sky extends JPanel implements SkySubject{
 
     SkyState state;
 
-    private int timeState;
-    private int weatherState;
     public Instant startTime;
     public long dayTime;
     public int hour;    //Divide by 1000 for the hour
 
-    private ArrayList<SkyObserver> observers;
+    private final ArrayList<SkyObserver> observers;
 
     public Sky() {
         sunnyState = new SunnyState(this);
         nightState = new NightState(this);
         state = sunnyState;
 
-        observers = new ArrayList();
+        observers = new ArrayList<>();
 
         startTime = Instant.now();
         this.setPreferredSize(new Dimension(Window.WIN_WIDTH, Window.WIN_HEIGHT/4));
@@ -64,9 +62,5 @@ public class Sky extends JPanel implements SkySubject{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         state.paintComponent(g);
-    }
-
-    public void progressTime() {
-        timeState = timeState++ % 4;
     }
 }

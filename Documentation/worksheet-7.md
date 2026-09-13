@@ -21,11 +21,7 @@
 
 **1.2.** Describe your workflow. Did you use branches? Pull requests?
 
-When working on the project, code would be pushed after a specific feature or certain progress on a feature was made.
-These changes were then able to be pulled by other members so their local repositories could remain updated.
-A branch would be used when a change that was expected to take a longer time to implement was used, to avoid conflicts
-between this change and routine changes in the main branch.
-
+When working on the project, code would be pushed after a specific feature or certain progress on a feature was made. These changes were then able to be pulled by other members so their local repositories could remain updated. A branch would be used when a change that was expected to take a longer time to implement was used, to avoid conflicts between this change and routine changes in the main branch. Branches were used infrequently since due to the small size of the codebase, and some parts of the project's structure would change significantly as we learnt new things over the semester (for example, the structure was drastically modified when implementing the state pattern to Growable objects).
 
 
 **1.3.** Estimate the percentage of commits you contributed relative to the total in your repository.
@@ -91,12 +87,14 @@ Plant.java: The main superclass for all Plants. Provides code that keeps the Pla
 
 *growables/weed*
 
-**TODO**
+Weed.java: Class for the weed type of Plant. Contains a unique method of spreading and various fields that differ from other kinds of plants, such as the lifespan of the Weed.
+
+WeedAdultState.java: Responsible for the Weed's unique behaviour during it's adult state. Involves checking every tick if it should die, and creating a new Weed if it has not already.
 
 *growables/plant/flower*
 BloomState.java: Unique state used only by flowers when the specialised flower does not have a unique BloomState. Flowers only produce seeds if they are blooming.
 
-Flower.java: A specialisation of Plant, but still abstract. Adds Flower-exclusive functionality like the BloomState.
+Flower.java: A specialisation of Plant, but still abstract. Adds Flower-exclusive functionality like the BloomState. Note that while only Sunflower is extended from this at present, other types of flowers will be added in future.
 
 *growables/plant/flower/sunflower*
 Sunflower.java: A specialisation of flower. Has it's own unique appearance, method of producing and distributing seeds, and states.
@@ -111,19 +109,22 @@ SunflowerBloomState: Provides the look of a blooming Sunflower.
 
 
 **2.2.** Identify any inheritance relationships. For each parent–child pair, list what the child inherits and what it overrides.
-JFrame -> Window
 
-JPanel -> Sky
+JFrame -> Window: Inherets all methods and fields of JFrame, namely add(), pack(), and various methods used for formatting like setLayout(), setResizable(), and many others. Does not override any methods of JFrame.
 
-JPanel -> Ground
+JPanel -> Sky (Implements SkySubject): Inherets all variables and methods from JPanel to allow it to act as a slightly specialised JPanel. Overrides registerObserver(), removeObserver(), and notifyObservers() from SkySubject, and paintComponent() from JComponent (a superclass of JPanel).
 
-JPanel -> Plant
+JPanel -> Ground: Inherets all variables and methods from JPanel to allow it to act as a slightly specialised JPanel, notably using methods like add() and remove(). Does not override anything, except for componentAdded() from ContainerAdapter, which is a superclass of JPanel.
 
-Plant -> Weed
+JPanel -> Plant (implements Growable and SkyObserver): Inherets all the fields and methods from JPanel and it's superclasses. Overrides PaintComponent() to allow for custom graphics. Also overrides the Growable methods tick(), getState(), getPosition(), and isColliding().
 
-Plant -> Flower
+Plant -> Weed: Inherets Plant fields like sky, position, and the various states a Plant can be in alongside the JPanel fields and methods. Overrides spread() and increaseSpreadNum() from Growable, and update() from SkyObserver.
 
-Flower -> Sunflower
+Plant -> Flower: Inherets everything from Plant, and does not override anything, only adding an bloom() function and the associated PlantState. This is an abstract class.
+
+Flower -> Sunflower: Inherets all fields and methods from Plant, and the bloomState from Flower. Overrides bloom() from Flower, update() from SkyObserver, and increaseSpreadNum() and spread() from Plant.
+
+___State.java (implements either SkyState or PlantState): There are a lot of different State classes in the project which all are structured very similarly. They override the interface methods paintComponent(), checkChange(), and getName() in both cases.
 
 *Interface Implementations*
 
@@ -215,6 +216,8 @@ public class Patch<T extends Growable> extends JPanel{
 
 **4.2.** Which week's activity taught you the most? What did you learn?
 
+Week 5's activities were the most helpful to me, since during the week 4 lecture I found it difficult to understand everything covered in the broad scope of generics, particularly type erasure and how it actually worked at compile time. I learnt about the different between a generic type and a raw type, the circumstances in which types could be used interchangeably, which was particularly helpful when developing the Patch class, since I had trouble with type incompatibilities at first. Understanding what the compiler could be certain about and what were assumptions that I would make while coding was extremely valueable to me.
+
 ---
 
 ## 5. Uniqueness and Creativity
@@ -223,7 +226,9 @@ public class Patch<T extends Growable> extends JPanel{
 
 The Sky's day/night cycle, and it's implementation of the observer pattern with Plants.
 
+Plant and its child classes implementing the state pattern.
 
+The specific ways in which Plants and specialisations would grow, spread, look, and generally behave.
 
 **5.2.** Which feature required the most independent research or problem-solving? What did you learn from it?
 

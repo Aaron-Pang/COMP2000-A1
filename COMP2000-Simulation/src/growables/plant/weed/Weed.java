@@ -14,7 +14,6 @@ public class Weed extends Plant {
     static final int growthDelay = 1000;
     static final int size = 10;
     String environmentState;
-    Sky sky;
     public boolean spent = false;
 
     Direction direction;

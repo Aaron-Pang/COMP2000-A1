@@ -9,7 +9,6 @@ public class Sunflower extends Flower {
     int spreadNum = 1;
     static final int growthDelay = 3000;
     static final int size = 50;
-    Sky sky;
     String environmentState;
 
     public Sunflower(Point position, Sky sky) {
@@ -22,7 +21,6 @@ public class Sunflower extends Flower {
 
         super.state = seedState;
 
-        this.sky = sky;
         environmentState = sky.getState();
 
         //Check if very close to another plant. If so, immediately die.
