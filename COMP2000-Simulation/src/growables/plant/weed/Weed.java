@@ -1,13 +1,12 @@
 package growables.plant.weed;
 import exceptions.InvalidPositionException;
 import growables.plant.Plant;
-
 import java.awt.*;
 import java.util.Random;
 import javax.swing.BorderFactory;
+import placed_objects.sky.Sky;
 import supplementary.Direction;
 import supplementary.Window;
-import placed_objects.sky.Sky;
 
 public class Weed extends Plant {
 
@@ -15,15 +14,19 @@ public class Weed extends Plant {
     int spreadRadius = 30;
     static final int growthDelay = 1000;
     static final int size = 10;
+    String environmentState;
+    Sky sky;
 
     Direction direction;
     Random random;
 
     public Weed(Point position, Sky sky) {
         super(position, growthDelay, size, sky);
-        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        
+        super.adultState = new WeedAdultState(this);
 
+        this.sky = sky;
+        environmentState = sky.getState();
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         random = new Random();
         direction = new Direction(random.nextInt(-20, 20), random.nextInt(-20, 20));
 
@@ -32,9 +35,8 @@ public class Weed extends Plant {
     }
 
     Weed(Point position, Direction direction, Sky sky) {
-        super(position, growthDelay, size, sky);
-        this.position = position;
-        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        this(position, sky);
+
         if(position.x > Window.WIN_WIDTH || position.x < 0 || position.y < 0 || position.y > Window.WIN_HEIGHT/4*3) {
             throw new InvalidPositionException("Position: " + position.x + ", " + position.y);
         }
@@ -50,19 +52,14 @@ public class Weed extends Plant {
         this.position = position;
     }
 
-    @Override
-    public void adultAction() {
-        if ((int) (Math.random() * 21) == 0) {
-            spread();
-        }
+    @Override 
+    public void update(String timeState, int hour){
+        environmentState = timeState;
     }
 
-    @Override
     public void grow() {
-        if (!(growthState == ADULT)) {
-            growthState++;
-        } else if ((int) (Math.random() * 3) == 0) {
-            growthState++;
+        if ((int) (Math.random() * 3) == 0) {
+            state = deadState;
         }
     }
 
@@ -77,9 +74,8 @@ public class Weed extends Plant {
         for(int i = 0; i < spreadNum; i++) {
             int newX = position.x + direction.dx;
             int newY = position.y + direction.dy;
-            //int newX = position.x + direction.dx;
-            //int newY = position.y + direction.dy;
             try {
+                System.out.println("Adding new weed");
                 Point newPoint = new Point(newX, newY);
                 getParent().add(new Weed(newPoint, direction, sky));
                 grow();
@@ -87,13 +83,13 @@ public class Weed extends Plant {
                 System.out.println("Stopped OOB Weed");
                 die();
             } catch(Exception e) {
-
+                System.out.println("Could not create weed");
             }
         }
     }
 
     public void die() {
-        growthState = DEAD;
+        state = deadState;
     }
 
     public String toString() {
