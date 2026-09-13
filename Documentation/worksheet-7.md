@@ -38,6 +38,18 @@ I estimate I contributed about 90% of the commits in my repository.
 
 **2.1.** List every class in your project and write 1–2 sentences describing its responsibility.
 
+*Interfaces*
+
+Growable.java: Contains function protoypes for functions that all Growable objects should have, like spread(), tick(), getState(), and others.
+
+PlantState.java: Contains function prototypes for the states a Plant can have, including the ability to check and change the plant's state.
+
+SkyState.java: Similar to PlantState, but functions are specialised for the states the Sky can be.
+
+SkyObserver.java: Contains an update function called on objects observing the Sky.
+
+SkySubject.java: Contains function prototypes used by the Sky as a subject that is observed.
+
 The following is organised by folder.
 
 *placed_objects/sky*
@@ -99,6 +111,13 @@ SunflowerBloomState: Provides the look of a blooming Sunflower.
 
 
 **2.2.** Identify any inheritance relationships. For each parent–child pair, list what the child inherits and what it overrides.
+JFrame -> Window
+
+JPanel -> Sky
+
+JPanel -> Ground
+
+JPanel -> Plant
 
 Plant -> Weed
 
@@ -106,7 +125,9 @@ Plant -> Flower
 
 Flower -> Sunflower
 
+*Interface Implementations*
 
+Plant -> Growable, SkyObserver
 
 **2.3.** Pick the class that you think has the best design. Explain why.
 
@@ -125,14 +146,30 @@ I think Plant.java has some of the best design in the project. This is because i
 
 **3.1.** List every place your code uses generics (e.g. `ArrayList<Actor>`, `Optional<Cell>`, `HashMap<String, Team>`). If you deliberately used none, explain why.
 
+Patch.java is a generic class, and has a field "collection" which is an ArrayList of it's type. It also has a generic method addToPatch(T item) which takes an object of the Patch's type and tries to add it to the collection ArrayList. It has another method getObjectsInRadius() which returns an ArrayList<Growable>.
 
-
+Ground.java has a method getGrowables, which returns an ArrayList<Growable> of the Growable objects currently added to the Ground.
 
 
 **3.2.** List every place your code handles exceptions (try/catch, throws, custom exception classes). What error is each protecting against?
 
+*Custom Exceptions*
 
+InvalidPositionException: Thrown when objects are unable to be placed due to an error with their positioning in the window.
 
+OutOfPatchBoundsException: Thrown by Patch.java when an attempt is made to add a Growable to the Patch that is outside of its radius.
+
+InvalidParentException: Thrown by objects when attempting to add them to a Container object that they cannot be added to.
+
+*Exception Handling*
+
+Plant.java throws an InvalidPositionException when an attempt is made to place a Plant outside of the window or is created without a position.
+
+Sunflower.java handles exceptions when creating new Sunflowers. It attempts to catch InvalidPositionException first, and other exceptions second.
+
+Patch.java throws an OutOfPatchBoundsException if an attempt is made to add plant to the patch that is not within its radius.
+
+Pathc.java throws InvalidParentException if an attempt is made to add the Patch to a Container other than a Ground.
 
 
 **3.3.** Paste a code snippet showing either a generic class/method or a try/catch block.
@@ -184,6 +221,88 @@ public class Patch<T extends Growable> extends JPanel{
 
 **5.1.** List everything you added to the project that was not part of the in-class activities.
 
+The Sky's day/night cycle, and it's implementation of the observer pattern with Plants.
+
+
+
 **5.2.** Which feature required the most independent research or problem-solving? What did you learn from it?
 
+The implementation of the Patch class required a lot of problem solving around how generics and type-erasure actually work in Java, as when I started implementing it, I misunderstood much of the purpose of generics, why one would use them, and how to implement them in a way that functioned in the context I was looking for. I learnt about the difference between a type and a raw type, type safety and checking, and the importance of examining what is known, and what I was assuming about the code I was writing.
+
 **5.3.** Paste one code snippet that you are especially proud of. Explain why it goes beyond what was done in class.
+
+The following is one of the more structurally involved pieces of code in the project. It features much work covered in class, but also implements two design patterns from the lectures: the state pattern and the observer pattern. It also throws some custom exceptions, and is an abstract class that is never explicitly instantiated.
+
+public abstract class Plant extends JPanel implements Growable, SkyObserver{
+    public PlantState seedState;
+    public PlantState seedlingState;
+    public PlantState juvenileState;
+    public PlantState adultState;
+    public PlantState deadState;
+
+    public PlantState state;
+    
+    Instant startTime;
+    public int size = 60;
+    public Point position;
+
+    public int growthDelay;      //How long between growth states in milliseconds
+    public int spreadRadius;     //How far a plant can spread its seeds
+
+    public Plant(Point p, int growthDelay, int size, Sky sky) {
+        seedState = new SeedState(this);
+        seedlingState = new SeedlingState(this);
+        juvenileState = new JuvenileState(this);
+        adultState = new AdultState(this);
+        deadState = new DeadState(this);
+
+        state = seedState;
+
+        startTime = Instant.now();
+        position = p;
+        spreadRadius = 100;
+        if(position == null) {
+            throw new InvalidPositionException("Position is null");
+        } else if (position.x > Window.WIN_WIDTH || position.x < 0 || position.y < 0 || position.y > Window.WIN_HEIGHT/4*3) {
+            throw new InvalidPositionException("Position: " + position.x + ", " + position.y);
+        }
+        this.growthDelay = growthDelay;
+
+        this.position = p;
+        this.setBounds(position.x, position.y, size, size);
+        this.setBackground(Color.darkGray);
+        sky.registerObserver(this);
+    }
+
+    @Override
+    public void tick() {
+        Instant now = Instant.now();
+        long lifespan = (Duration.between(startTime, now)).toMillis();
+
+        state.checkChange(lifespan);
+        revalidate();
+        repaint();
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        state.paintComponent(g);
+    }
+
+    public void delete() {
+        Container parent = this.getParent();
+        parent.remove(this);
+        parent.revalidate();
+        parent.repaint();
+    }
+
+    @Override
+    public String getState() {
+        return state.getName();
+    }
+
+    @Override
+    public Point getPosition() {
+        return position;
+}
