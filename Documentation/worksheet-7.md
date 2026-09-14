@@ -44,7 +44,7 @@ I estimate I contributed about 90% of the commits in my repository.
 
 **2.1.** List every class in your project and write 1–2 sentences describing its responsibility.
 
-*Interfaces*
+*Interfaces* <br>
 
 Growable.java: Contains function protoypes for functions that all Growable objects should have, like spread(), tick(), getState(), and others.
 
@@ -59,6 +59,7 @@ SkySubject.java: Contains function prototypes used by the Sky as a subject that 
 The following is organised by folder.
 
 *placed_objects/sky*
+
 Sky.java: This is the topmost blue bar in the window containing the sun. It keeps track of time and the state of time in the project, and updates objects observing it when the time state changes.
 
 SunnyState.java: The sky's state when it is sunny. It keeps the sky blue and sun yellow during the day, and switches to night at the right time, updating observers when it does so.
@@ -66,12 +67,14 @@ SunnyState.java: The sky's state when it is sunny. It keeps the sky blue and sun
 NightState.java: The sky's state at night. Turns the sky black and makes the moon white, and updates observers when it becomes day again.
 
 *placed_objects*
+
 Ground.java: This is the green panel at the bottom of the window that other objects like plants and patches are added to. Each time the simulation updates, it calls the relevant functions of all objects placed in it, and features some supplementary methods to assist with this.
 
 Patch.java: This is an object that can be placed on the ground, and acts like a collection of Growable objects. Objects in the collection are more fertile, and can produce more seeds that they would otherwise be able to.
 
 
 *supplementary*
+
 Direction.java: A basic class that holds an x and y value used by some plants when they grow.
 
 Radius.java: Acts like a square area that some other objects use, like the Patch or Sunflower. Features some useful methods such as one to get a random point within the area covered by the radius.
@@ -79,10 +82,12 @@ Radius.java: Acts like a square area that some other objects use, like the Patch
 Window.java: The main window that all other objects are placed in, either directly or indirectly. Contains a timer that acts as the main loop for the entire program, triggering methods within the Sky and Ground each tick. Will only directly contain the Sky and Ground, and updates all other objects in the simulation through them.
 
 *growables*
+
 Fungus.java: An incomplete class that will in future represent a mushroom that grows slowly and consistently, even during the night.
 
 
 *growables/plant*
+
 AdultState.java: A plant state used if a specialisation of Plant does not have distinct behaviour as an Adult. Will update the Plant to look different than other states, and transitions to being dead when a Plant's lifespan is exceeded.
 
 DeadState.java: A plant state used if a specialisation of Plant does not have distinct behaviour when Dead. After a set amount of time, will remove the Plant from the Ground.
@@ -102,11 +107,13 @@ Weed.java: Class for the weed type of Plant. Contains a unique method of spreadi
 WeedAdultState.java: Responsible for the Weed's unique behaviour during it's adult state. Involves checking every tick if it should die, and creating a new Weed if it has not already.
 
 *growables/plant/flower*
+
 BloomState.java: Unique state used only by flowers when the specialised flower does not have a unique BloomState. Flowers only produce seeds if they are blooming.
 
 Flower.java: A specialisation of Plant, but still abstract. Adds Flower-exclusive functionality like the BloomState. Note that while only Sunflower is extended from this at present, other types of flowers will be added in future.
 
 *growables/plant/flower/sunflower*
+
 Sunflower.java: A specialisation of flower. Has it's own unique appearance, method of producing and distributing seeds, and states.
 
 SunflowerSeedState: Provides the unique appearance of a Sunflower seed.
@@ -229,7 +236,7 @@ public class Patch<T extends Growable> extends JPanel{
 
 **4.1.** Attach or link your log book entries for Weeks 1–6.
 
-
+File attached in iLearn submission.
 
 
 
