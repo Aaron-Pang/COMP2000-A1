@@ -14,6 +14,16 @@
 
 ```
 
+* e2ffcdc (HEAD -> main, origin/main, origin/HEAD) Added UML documentation
+* 65afe0d Modified weed spreading to be more complicated and create vine-like structures
+* 4f28aee Changed weed to use state pattern
+* 4cd1763 (origin/Sky-Observer, Sky-Observer) Prepare Weed for state implementation
+* 602f4dd Continued completing worksheet
+* a4efb83 Added worksheet to repository
+* 8cf3a8f Sunflowers now stop blooming at night and start at day
+* 7b036f6 Began preparing to implement sky observer pattern
+* 01826e0 Updated README to describe the program
+* 224ed63 Removed remaining chat functionality
 
 
 
@@ -137,9 +147,18 @@ I think Plant.java has some of the best design in the project. This is because i
 
 **2.4.** Paste one code snippet that demonstrates your use of polymorphism or encapsulation.  Include an explanation of _how_ this demonstrates polymorphim or encapsulation.  Give a reference to a provided reading that talks about this type of polymorphism or encapsulation.
 
+The following code snippet uses subtype polymorphism to return an ArrayList of type Growable. In the program, any object of type Growable can be added to this ArrayList, but any subclass extending from a class that implements Growable can also be used equivalently, as shown in "Learning Java 3rd Edition, Chapter 6. Relationships Among Classes - Subclassing and Inheritance". For example, in this code, objects of type Plant (which directly implements Growable) would be added to the ArrayList, but objects of type Sunflower would also be added, since Sunflower extends Flower, which in turn extends Plant.
 
-
-
+ArrayList<Growable> getGrowables() {
+        Component[] items = getComponents();
+        ArrayList<Growable> growables = new ArrayList<>();
+        for(int i = 0; i < items.length; i++) {
+            if(items[i] instanceof Growable) {
+                growables.add((Growable) items[i]);
+            }
+        }
+        return growables;
+    }
 
 ---
 
