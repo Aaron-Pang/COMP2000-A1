@@ -58,6 +58,10 @@ public class Window extends JFrame{
         return sky;
     }
 
+    public Ground getGround() {
+        return ground;
+    }
+
     public void addToGround(Component comp) {
         ground.add(comp);
     }

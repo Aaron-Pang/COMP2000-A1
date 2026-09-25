@@ -29,7 +29,7 @@ public class Ground extends JPanel{
         }
     }
 
-    ArrayList<Growable> getGrowables() {
+    public ArrayList<Growable> getGrowables() {
         Component[] items = getComponents();
         ArrayList<Growable> growables = new ArrayList<>();
         for(int i = 0; i < items.length; i++) {

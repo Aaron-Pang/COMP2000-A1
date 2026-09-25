@@ -3,7 +3,9 @@ import exceptions.InvalidPositionException;
 import growables.Growable;
 import java.awt.*;
 import java.time.*;
+import java.util.ArrayList;
 import javax.swing.*;
+import placed_objects.Ground;
 import placed_objects.sky.Sky;
 import placed_objects.sky.SkyObserver;
 import supplementary.Window;
@@ -21,11 +23,12 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
     public int size = 60;
     public Point position;
     public Sky sky;
+    public Ground ground;
 
     public int growthDelay;      //How long between growth states in milliseconds
     public int spreadRadius;     //How far a plant can spread its seeds
 
-    public Plant(Point p, int growthDelay, int size, Sky sky) {
+    public Plant(Point p, int growthDelay, int size, Sky sky, Ground ground) {
         seedState = new SeedState(this);
         seedlingState = new SeedlingState(this);
         juvenileState = new JuvenileState(this);
@@ -35,6 +38,7 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
         state = seedState;
 
         this.sky = sky;
+        this.ground = ground;
         startTime = Instant.now();
         position = p;
         spreadRadius = 100;
@@ -47,12 +51,35 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
 
         this.position = p;
         this.setBounds(position.x, position.y, size, size);
+
+        //Check if overlapping with other growables
+        
+
         this.setBackground(Color.darkGray);
         sky.registerObserver(this);
     }
 
+    public boolean isColliding() {
+        ArrayList<Growable> growables = ground.getGrowables();
+        for(Growable g : growables) {
+            if(g != this && this.getHitbox().intersects(g.getHitbox())) {
+                System.out.println("Colliding");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isColliding(Growable g) {
+        return this.getHitbox().intersects(g.getHitbox());
+    }
+
     @Override
     public void tick() {
+        if(isColliding()) {
+            delete();
+        }
+
         Instant now = Instant.now();
         long lifespan = (Duration.between(startTime, now)).toMillis();
 
@@ -84,10 +111,9 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
         return position;
     }
 
-    //TODO
     @Override
-    public boolean isColliding() {
-        return false;
+    public Rectangle getHitbox() {
+        return this.getBounds();
     }
 
     @Override

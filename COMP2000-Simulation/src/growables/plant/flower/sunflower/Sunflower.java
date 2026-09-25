@@ -2,17 +2,18 @@ package growables.plant.flower.sunflower;
 import exceptions.InvalidPositionException;
 import growables.plant.flower.*;
 import java.awt.*;
+import placed_objects.Ground;
 import placed_objects.sky.Sky;
 import supplementary.Radius;
 
 public class Sunflower extends Flower {
     int spreadNum = 1;
-    static final int growthDelay = 3000;
+    static final int growthDelay = 5000;
     static final int size = 50;
     String environmentState;
 
-    public Sunflower(Point position, Sky sky) {
-        super(position, growthDelay, size, sky);
+    public Sunflower(Point position, Sky sky, Ground ground) {
+        super(position, growthDelay, size, sky, ground);
 
         super.seedState = new SunflowerSeedState(this);
         super.juvenileState = new SunflowerJuvenileState(this);
@@ -27,14 +28,14 @@ public class Sunflower extends Flower {
         //TODO
     }
 
-    Sunflower(Point position, double growthFactor, Sky sky) {
-        super(position, (int) (growthDelay / growthFactor), size, sky); //grow at a different rate relative to standard sunflower
+    Sunflower(Point position, double growthFactor, Sky sky, Ground ground) {
+        super(position, (int) (growthDelay / growthFactor), size, sky, ground); //grow at a different rate relative to standard sunflower
         this.position = position;
     }
 
     @Override
     public void bloom() {
-        if ((int) (Math.random() * 100) == 0) {
+        if ((int) (Math.random() * 150) == 0) {
             spread();
         }
     }
@@ -55,11 +56,11 @@ public class Sunflower extends Flower {
         for(int i = 0; i < spreadNum; i++) {
             Point newPoint = radius.getRandomPoint();
             try {
-                getParent().add(new Sunflower(newPoint, sky));
+                getParent().add(new Sunflower(newPoint, sky, ground));
             } catch(InvalidPositionException p) {
                 System.out.println("Stopped OOB Sunflower");
             } catch(Exception e) {
-
+                System.out.println("Cannot spread sunflower");
             }
         }
     }

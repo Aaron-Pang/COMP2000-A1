@@ -4,6 +4,7 @@ import growables.plant.Plant;
 import java.awt.*;
 import java.util.Random;
 import javax.swing.BorderFactory;
+import placed_objects.Ground;
 import placed_objects.sky.Sky;
 import supplementary.Direction;
 import supplementary.Window;
@@ -19,8 +20,8 @@ public class Weed extends Plant {
     Direction direction;
     Random random;
 
-    public Weed(Point position, Sky sky) {
-        super(position, growthDelay, size, sky);
+    public Weed(Point position, Sky sky, Ground ground) {
+        super(position, growthDelay, size, sky, ground);
         super.adultState = new WeedAdultState(this);
 
         this.sky = sky;
@@ -33,8 +34,8 @@ public class Weed extends Plant {
         //TODO
     }
 
-    Weed(Point position, Direction direction, Sky sky) {
-        this(position, sky);
+    Weed(Point position, Direction direction, Sky sky, Ground ground) {
+        this(position, sky, ground);
 
         if(position.x > Window.WIN_WIDTH || position.x < 0 || position.y < 0 || position.y > Window.WIN_HEIGHT/4*3) {
             throw new InvalidPositionException("Position: " + position.x + ", " + position.y);
@@ -46,8 +47,8 @@ public class Weed extends Plant {
         //TODO
     }
 
-    Weed(Point position, double growthFactor, Sky sky) {
-        super(position, (int) (growthDelay / growthFactor), size, sky); //grow at a different rate relative to standard sunflower
+    Weed(Point position, double growthFactor, Sky sky, Ground ground) {
+        super(position, (int) (growthDelay / growthFactor), size, sky, ground); //grow at a different rate relative to standard sunflower
         this.position = position;
     }
 
@@ -72,13 +73,11 @@ public class Weed extends Plant {
             int newY = position.y + direction.dy + random.nextInt(-2, 2);
             try {
                 Point newPoint = new Point(newX, newY);
-                getParent().add(new Weed(newPoint, direction, sky));
+                getParent().add(new Weed(newPoint, direction, sky, ground));
                 spent = true;
             } catch(InvalidPositionException p) {
                 System.out.println("Stopped OOB Weed");
-            } catch(Exception e) {
-                System.out.println("Could not create weed");
-            }
+            } 
         }
     }
 
