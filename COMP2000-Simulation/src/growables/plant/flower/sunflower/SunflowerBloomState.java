@@ -14,7 +14,9 @@ public class SunflowerBloomState implements PlantState{
 
     @Override
     public void paintComponent(Graphics g) {
-        flower.setBackground(Color.YELLOW);
+        flower.setOpaque(false);
+        g.setColor(Color.YELLOW);
+        g.fillOval(0, 0, flower.size, flower.size);
     }
 
     @Override

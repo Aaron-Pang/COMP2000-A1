@@ -14,6 +14,8 @@ public class SeedlingState implements PlantState{
     @Override
     public void paintComponent(Graphics g) {
         plant.setBackground(new Color(2, 184, 9));
+        g.setColor(new Color(2, 184, 9));
+        g.fillOval(0, 0, plant.getBounds().width, plant.getBounds().height);
     }
 
     @Override

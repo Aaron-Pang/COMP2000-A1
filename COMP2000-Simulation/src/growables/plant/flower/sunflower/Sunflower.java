@@ -34,7 +34,6 @@ public class Sunflower extends Flower {
 
     @Override
     public void bloom() {
-        this.setBackground(Color.YELLOW);
         if ((int) (Math.random() * 100) == 0) {
             spread();
         }
