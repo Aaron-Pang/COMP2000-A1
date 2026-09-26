@@ -2,14 +2,15 @@ package placed_objects;
 import exceptions.InvalidParentException;
 import exceptions.OutOfPatchBoundsException;
 import growables.Growable;
+import growables.GrowableObserver;
+
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import placed_objects.ground.Ground;
-import placed_objects.ground.GroundObserver;
 import supplementary.Radius;
 
-public class Patch<T extends Growable> extends JPanel implements GroundObserver {
+public class Patch<T extends Growable> extends JPanel implements GrowableObserver {
     //Within a small area, growable objects of type T are more likely to spread seeds
     Radius patchArea;
     Container parent;  //A patch can only be placed on the ground
@@ -24,7 +25,6 @@ public class Patch<T extends Growable> extends JPanel implements GroundObserver 
         this.setOpaque(false);
         this.setBackground(new Color(0, 0, 255, 125));
         this.collection = new ArrayList<T>();
-        ground.registerObserver(this);
     }
 
     //When this component added to a container, make sure it is of type ground
@@ -38,13 +38,17 @@ public class Patch<T extends Growable> extends JPanel implements GroundObserver 
     }
 
     @Override
-    public void update(Growable g) {
-        System.out.println("I'm told a " + g.getClass() + " was added");
+    public void update(ArrayList<? extends Growable> incoming) {
+        System.out.println("List updated");
+        for(Growable g : incoming) {
+            g.registerObserver(this);
+        }
     }
 
     public void addToPatch(T item) throws OutOfPatchBoundsException {
         if(patchArea.isPointInRadius(item.getPosition())) {
             collection.add(item);
+            item.registerObserver(this);
         } else {
             throw new OutOfPatchBoundsException();
         }

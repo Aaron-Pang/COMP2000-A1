@@ -2,9 +2,9 @@ package growables.plant.weed;
 import exceptions.InvalidPositionException;
 import growables.plant.Plant;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.BorderFactory;
-
 import placed_objects.ground.Ground;
 import placed_objects.sky.Sky;
 import supplementary.Direction;
@@ -73,8 +73,11 @@ public class Weed extends Plant {
             double newX = position.x + direction.dx * random.nextInt(15, 20);
             double newY = position.y + direction.dy * random.nextInt(15, 20);
             try {
+                ArrayList<Weed> children = new ArrayList<>();
                 Point newPoint = new Point((int) newX, (int) newY);
-                getParent().add(new Weed(newPoint, direction, sky, ground));
+                Weed newWeed = new Weed(newPoint, direction, sky, ground);
+                children.add(newWeed);
+                getParent().add(newWeed);
                 //Small chance to create an offshoot vine
                 if(random.nextInt(0, 5) == 0) {
                     //Create new weed with random direction
@@ -83,8 +86,11 @@ public class Weed extends Plant {
                     double startX = position.x + newDir.dx * random.nextInt(15, 20);
                     double startY = position.y + newDir.dy * random.nextInt(15, 20);
                     Point startPoint = new Point((int) startX, (int) startY);
-                    getParent().add(new Weed(startPoint, newDir, sky, ground));
+                    Weed newChild2 = new Weed(startPoint, newDir, sky, ground);
+                    children.add(newChild2);
+                    getParent().add(newChild2);
                 }
+                notifyObservers(children);
                 spent = true;
             } catch(InvalidPositionException p) {
                 System.out.println("Stopped OOB Weed");

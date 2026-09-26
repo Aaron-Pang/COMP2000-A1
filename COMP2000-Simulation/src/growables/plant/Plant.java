@@ -1,6 +1,7 @@
 package growables.plant;
 import exceptions.InvalidPositionException;
 import growables.Growable;
+import growables.GrowableObserver;
 import java.awt.*;
 import java.time.*;
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
     public int growthDelay;      //How long between growth states in milliseconds
     public int spreadRadius;     //How far a plant can spread its seeds
 
+    final ArrayList<GrowableObserver> observers;
+
     public Plant(Point p, int growthDelay, int size, Sky sky, Ground ground) {
         seedState = new SeedState(this);
         seedlingState = new SeedlingState(this);
@@ -54,6 +57,7 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
 
         //Check if overlapping with other growables
         
+        observers = new ArrayList<>();
 
         this.setBackground(Color.darkGray);
         sky.registerObserver(this);
@@ -114,6 +118,23 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
     @Override
     public Rectangle getHitbox() {
         return this.getBounds();
+    }
+
+    @Override
+    public void registerObserver(GrowableObserver o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(GrowableObserver o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyObservers(ArrayList<? extends Growable> children) {
+        for(GrowableObserver g : observers) {
+            g.update(children);
+        }
     }
 
     @Override

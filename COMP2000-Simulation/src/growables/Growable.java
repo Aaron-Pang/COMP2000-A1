@@ -1,7 +1,7 @@
 package growables;
 import java.awt.*;
 
-public interface Growable {
+public interface Growable extends GrowableSubject {
     public void spread();     //Different things spread in different ways, e.g. wind, bees, spores
     public Point getPosition();
     public String getState();
