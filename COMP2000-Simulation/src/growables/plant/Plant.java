@@ -131,9 +131,16 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
     }
 
     @Override
-    public void notifyObservers(ArrayList<? extends Growable> children) {
+    public void notifyObserversSpread(ArrayList<? extends Growable> children) {
         for(GrowableObserver g : observers) {
             g.update(children);
+        }
+    }
+
+    @Override
+    public void notifyObserversDie() {
+        for(GrowableObserver o : observers) {
+            o.update(this);
         }
     }
 

@@ -1,8 +1,9 @@
 package growables.plant.flower.sunflower;
 import exceptions.InvalidPositionException;
+import growables.Growable;
 import growables.plant.flower.*;
 import java.awt.*;
-
+import java.util.ArrayList;
 import placed_objects.ground.Ground;
 import placed_objects.sky.Sky;
 import supplementary.Radius;
@@ -54,14 +55,18 @@ public class Sunflower extends Flower {
     @Override
     public void spread() {
         Radius radius = new Radius(position, spreadRadius);
+        ArrayList<Sunflower> children = new ArrayList<>();
         for(int i = 0; i < spreadNum; i++) {
             Point newPoint = radius.getRandomPoint();
             try {
-                getParent().add(new Sunflower(newPoint, sky, ground));
+                Sunflower child = new Sunflower(newPoint, sky, ground);
+                getParent().add(child);
+                children.add(child);
+                notifyObserversSpread(children);
             } catch(InvalidPositionException p) {
                 System.out.println("Stopped OOB Sunflower");
             } catch(Exception e) {
-                System.out.println("Cannot spread sunflower");
+                System.out.println(e.getMessage());
             }
         }
     }

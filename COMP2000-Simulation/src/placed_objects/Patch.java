@@ -39,20 +39,33 @@ public class Patch<T extends Growable> extends JPanel implements GrowableObserve
 
     @Override
     public void update(ArrayList<? extends Growable> incoming) {
-        System.out.println("List updated");
+        
         for(Growable g : incoming) {
-            g.registerObserver(this);
+            if(patchArea.isPointInRadius(g.getPosition())) {
+                addToPatch((T) g);  //Children only ever pass their own type, find better solution for this
+                g.registerObserver(this);
+                System.out.println(collection);
+            }
+        }
+    }
+
+    @Override
+    public void update(Growable g) {
+        if(collection.contains(g)) {
+            collection.remove(g);
+            System.out.println("Removing from patch");
+            System.out.println(collection);
         }
     }
 
     public void addToPatch(T item) throws OutOfPatchBoundsException {
-        if(patchArea.isPointInRadius(item.getPosition())) {
+        if(patchArea.isPointInRadius(item.getPosition()) && !collection.contains(item)) {
             collection.add(item);
             item.registerObserver(this);
+            item.increaseSpreadNum(2);
         } else {
             throw new OutOfPatchBoundsException();
         }
-        item.increaseSpreadNum(2);
     }
 
     ArrayList<Growable> getObjectsInRadius() {

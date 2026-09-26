@@ -8,5 +8,4 @@ public interface Growable extends GrowableSubject {
     public void increaseSpreadNum(double factor);
     public void tick();
     public Rectangle getHitbox();
-    //public void kill();
 }

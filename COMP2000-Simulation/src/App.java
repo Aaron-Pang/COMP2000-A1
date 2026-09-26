@@ -10,21 +10,17 @@ public class App {
 
         
         Patch<Sunflower> p = new Patch<Sunflower>(100, new Point(200, 200), window.getGround());
-        Patch<Weed> p2 = new Patch<>(100, new Point(600, 350), window.getGround());
 
         window.addToGround(p);
-        window.addToGround(p2);
 
         Sunflower sf1 = new Sunflower(new Point(200, 200), window.getSky(), window.getGround());
         window.addToGround(sf1);
         p.addToPatch(sf1);
 
-        Sunflower sf2 = new Sunflower(new Point(1000, 500), window.getSky(), window.getGround());
+        //Sunflower sf2 = new Sunflower(new Point(1000, 500), window.getSky(), window.getGround());
         Weed w = new Weed(new Point(600, 350), window.getSky(), window.getGround());
         
-        window.addToGround(sf2);
+        //window.addToGround(sf2);
         window.addToGround(w);
-        p2.addToPatch(w);
-        
     }
 }

@@ -60,7 +60,7 @@ public class Weed extends Plant {
 
     @Override
     public void increaseSpreadNum(double factor) {
-        spreadNum = (int) factor * spreadNum;
+        //spreadNum = (int) factor * spreadNum;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class Weed extends Plant {
                     children.add(newChild2);
                     getParent().add(newChild2);
                 }
-                notifyObservers(children);
+                notifyObserversSpread(children);
                 spent = true;
             } catch(InvalidPositionException p) {
                 System.out.println("Stopped OOB Weed");

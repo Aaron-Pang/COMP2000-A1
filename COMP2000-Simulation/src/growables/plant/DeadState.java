@@ -21,6 +21,7 @@ public class DeadState implements PlantState{
         if(lifespan > plant.growthDelay * 5) {
             //Delete plant
             try {
+                plant.notifyObserversDie();
                 plant.delete();
             } catch (Exception e) {
                 
