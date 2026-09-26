@@ -9,7 +9,7 @@ public class App {
         Window window = new Window();
 
         
-        Patch<Sunflower> p = new Patch(100, new Point(200, 200));
+        Patch<Sunflower> p = new Patch<Sunflower>(100, new Point(200, 200), window.getGround());
 
         window.addToGround(p);
         

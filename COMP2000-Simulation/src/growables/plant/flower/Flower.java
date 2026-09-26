@@ -2,7 +2,8 @@ package growables.plant.flower;
 
 import growables.plant.*;
 import java.awt.*;
-import placed_objects.Ground;
+
+import placed_objects.ground.Ground;
 import placed_objects.sky.Sky;
 
 public abstract class Flower extends Plant {

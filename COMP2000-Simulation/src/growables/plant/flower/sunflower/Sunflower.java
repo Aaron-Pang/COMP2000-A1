@@ -2,7 +2,8 @@ package growables.plant.flower.sunflower;
 import exceptions.InvalidPositionException;
 import growables.plant.flower.*;
 import java.awt.*;
-import placed_objects.Ground;
+
+import placed_objects.ground.Ground;
 import placed_objects.sky.Sky;
 import supplementary.Radius;
 

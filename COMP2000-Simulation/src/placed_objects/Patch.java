@@ -1,20 +1,21 @@
 package placed_objects;
-import java.awt.*;
-import java.util.ArrayList;
-import javax.swing.*;
-
 import exceptions.InvalidParentException;
 import exceptions.OutOfPatchBoundsException;
 import growables.Growable;
+import java.awt.*;
+import java.util.ArrayList;
+import javax.swing.*;
+import placed_objects.ground.Ground;
+import placed_objects.ground.GroundObserver;
 import supplementary.Radius;
 
-public class Patch<T extends Growable> extends JPanel{
+public class Patch<T extends Growable> extends JPanel implements GroundObserver {
     //Within a small area, growable objects of type T are more likely to spread seeds
     Radius patchArea;
     Container parent;  //A patch can only be placed on the ground
     ArrayList<T> collection;
     
-    public Patch(int radius, Point position) {
+    public Patch(int radius, Point position, Ground ground) {
         patchArea = new Radius(position, radius);
 
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -23,6 +24,7 @@ public class Patch<T extends Growable> extends JPanel{
         this.setOpaque(false);
         this.setBackground(new Color(0, 0, 255, 125));
         this.collection = new ArrayList<T>();
+        ground.registerObserver(this);
     }
 
     //When this component added to a container, make sure it is of type ground
@@ -33,6 +35,11 @@ public class Patch<T extends Growable> extends JPanel{
         if(!(parent instanceof Ground)) {
             throw new InvalidParentException("Error: Attempting to add Patch to non-Ground Panel");
         }
+    }
+
+    @Override
+    public void update(Growable g) {
+        System.out.println("I'm told a " + g.getClass() + " was added");
     }
 
     public void addToPatch(T item) throws OutOfPatchBoundsException {

@@ -5,12 +5,12 @@ import java.awt.*;
 import java.time.*;
 import java.util.ArrayList;
 import javax.swing.*;
-import placed_objects.Ground;
+import placed_objects.ground.Ground;
 import placed_objects.sky.Sky;
-import supplementary.Observer;
+import placed_objects.sky.SkyObserver;
 import supplementary.Window;
 
-public abstract class Plant extends JPanel implements Growable, Observer{
+public abstract class Plant extends JPanel implements Growable, SkyObserver{
     public PlantState seedState;
     public PlantState seedlingState;
     public PlantState juvenileState;

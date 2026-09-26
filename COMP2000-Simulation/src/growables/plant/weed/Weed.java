@@ -4,7 +4,8 @@ import growables.plant.Plant;
 import java.awt.*;
 import java.util.Random;
 import javax.swing.BorderFactory;
-import placed_objects.Ground;
+
+import placed_objects.ground.Ground;
 import placed_objects.sky.Sky;
 import supplementary.Direction;
 import supplementary.Window;
