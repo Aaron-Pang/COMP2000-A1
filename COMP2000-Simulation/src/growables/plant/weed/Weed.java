@@ -69,16 +69,27 @@ public class Weed extends Plant {
         }
 
         for(int i = 0; i < spreadNum; i++) {
-            double newX = position.x + direction.dx * random.nextInt(10, 20);
-            double newY = position.y + direction.dy * random.nextInt(10, 20);
+            double newX = position.x + direction.dx * random.nextInt(15, 20);
+            double newY = position.y + direction.dy * random.nextInt(15, 20);
             try {
                 Point newPoint = new Point((int) newX, (int) newY);
                 getParent().add(new Weed(newPoint, direction, sky, ground));
-                //Small chance to create an offshoot vine  
+                //Small chance to create an offshoot vine
+                if(random.nextInt(0, 5) == 0) {
+                    //Create new weed with random direction
+                    System.out.println("Creating offshoot");
+                    Direction newDir = new Direction(random.nextInt(-20, 20), random.nextInt(-20, 20));
+                    double startX = position.x + newDir.dx * random.nextInt(15, 20);
+                    double startY = position.y + newDir.dy * random.nextInt(15, 20);
+                    Point startPoint = new Point((int) startX, (int) startY);
+                    getParent().add(new Weed(startPoint, newDir, sky, ground));
+                }
                 spent = true;
             } catch(InvalidPositionException p) {
                 System.out.println("Stopped OOB Weed");
-            } 
+            } catch(NullPointerException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
