@@ -3,9 +3,11 @@ import java.awt.*;
 import java.time.*;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import supplementary.Observer;
+import supplementary.Subject;
 import supplementary.Window;
 
-public class Sky extends JPanel implements SkySubject{
+public class Sky extends JPanel implements Subject{
     SkyState sunnyState;
     SkyState nightState;
 
@@ -15,7 +17,7 @@ public class Sky extends JPanel implements SkySubject{
     public long dayTime;
     public int hour;    //Divide by 1000 for the hour
 
-    private final ArrayList<SkyObserver> observers;
+    private final ArrayList<Observer> observers;
 
     public Sky() {
         sunnyState = new SunnyState(this);
@@ -42,18 +44,18 @@ public class Sky extends JPanel implements SkySubject{
     }
 
     @Override
-    public void registerObserver(SkyObserver o) {
+    public void registerObserver(Observer o) {
         observers.add(o);
     }
 
     @Override
-    public void removeObserver(SkyObserver o) {
+    public void removeObserver(Observer o) {
         observers.remove(o);
     }
 
     @Override
     public void notifyObservers() {
-        for(SkyObserver o : observers) {
+        for(Observer o : observers) {
             o.update(state.getName(), hour);
         }
     }

@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import javax.swing.*;
 import placed_objects.Ground;
 import placed_objects.sky.Sky;
-import placed_objects.sky.SkyObserver;
+import supplementary.Observer;
 import supplementary.Window;
 
-public abstract class Plant extends JPanel implements Growable, SkyObserver{
+public abstract class Plant extends JPanel implements Growable, Observer{
     public PlantState seedState;
     public PlantState seedlingState;
     public PlantState juvenileState;
