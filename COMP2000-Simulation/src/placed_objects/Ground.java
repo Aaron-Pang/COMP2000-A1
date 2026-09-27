@@ -34,7 +34,6 @@ public class Ground extends JPanel{
     }
 
     public void addGrowable(Growable g) throws ObjectLimitExceededException {
-        System.out.println("Object added");
         if(growables.size() >= MAX_OBJECTS) {
             throw new ObjectLimitExceededException();
         }
@@ -43,12 +42,10 @@ public class Ground extends JPanel{
     }
 
     public void addPatch(Patch<?> p) {
-        System.out.println("Adding patch");
         super.add((Component) p);
     }
 
     public void delete(Growable g) {
-        System.out.println("Removing object");
         growables.remove(g);
         remove((Component) g);
     }

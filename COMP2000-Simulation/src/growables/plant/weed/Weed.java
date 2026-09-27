@@ -42,14 +42,6 @@ public class Weed extends Plant {
         }
 
         this.direction = direction;
-
-        //Check if very close to another plant. If so, immediately die.
-        //TODO
-    }
-
-    Weed(Point position, double growthFactor, Sky sky, Ground ground) {
-        super(position, (int) (growthDelay / growthFactor), size, sky, ground); //grow at a different rate relative to standard sunflower
-        this.position = position;
     }
 
     @Override 
@@ -77,7 +69,6 @@ public class Weed extends Plant {
                 //Small chance to create an offshoot vine
                 if(random.nextInt(0, 5) == 0) {
                     //Create new weed with random direction
-                    System.out.println("Creating offshoot");
                     Direction newDir = new Direction(random.nextInt(-20, 20), random.nextInt(-20, 20));
                     double startX = position.x + newDir.dx * random.nextInt(15, 20);
                     double startY = position.y + newDir.dy * random.nextInt(15, 20);

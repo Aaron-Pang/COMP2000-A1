@@ -63,7 +63,7 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
         ArrayList<Growable> growables = ground.getGrowables();
         for(Growable g : growables) {
             if(g != this && this.getHitbox().intersects(g.getHitbox())) {
-                System.out.println(this + " colliding with " + g);
+                //Call function to determine which plant wins
                 return true;
             }
         }

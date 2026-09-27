@@ -23,14 +23,6 @@ public class Sunflower extends Flower {
         super.state = seedState;
 
         environmentState = sky.getState();
-
-        //Check if very close to another plant. If so, immediately die.
-        //TODO
-    }
-
-    Sunflower(Point position, double growthFactor, Sky sky, Ground ground) {
-        super(position, (int) (GROWTH_DELAY / growthFactor), SIZE, sky, ground); //grow at a different rate relative to standard sunflower
-        this.position = position;
     }
 
     @Override
@@ -65,6 +57,7 @@ public class Sunflower extends Flower {
         }
     }
 
+    @Override
     public String toString() {
         return  ("Pos: " + position.x + ", " + position.y);
     }
