@@ -4,7 +4,7 @@ import growables.plant.*;
 import java.awt.*;
 
 public class BloomState implements PlantState{
-    public static final String name = "BLOOMING";
+    public static final String NAME = "BLOOMING";
 
     Flower flower;
 
@@ -27,6 +27,6 @@ public class BloomState implements PlantState{
 
     @Override
     public String getName() {
-        return name;
+        return NAME;
     }
 }

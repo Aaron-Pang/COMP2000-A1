@@ -27,6 +27,6 @@ public class SeedlingState implements PlantState{
 
     @Override
     public String getName() {
-        return name;
+        return NAME;
     }
 }

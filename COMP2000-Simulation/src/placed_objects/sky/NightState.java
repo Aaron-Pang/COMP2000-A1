@@ -30,6 +30,6 @@ public class NightState implements SkyState {
 
     @Override
     public String getName() {
-        return name;
+        return NAME;
     }
 }

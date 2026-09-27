@@ -4,7 +4,7 @@ import growables.plant.PlantState;
 import java.awt.Graphics;
 
 public class WeedAdultState implements PlantState {
-    public static final String name = "ADULT";
+    public static final String NAME = "ADULT";
     Weed weed;
 
     public WeedAdultState(Weed weed) {
@@ -26,6 +26,6 @@ public class WeedAdultState implements PlantState {
 
     @Override
     public String getName() {
-        return name;
+        return NAME;
     }
 }

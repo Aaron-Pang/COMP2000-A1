@@ -4,7 +4,7 @@ import growables.plant.*;
 import java.awt.*;
 
 public class SunflowerBloomState implements PlantState{
-    public static final String name = "BLOOMING";
+    public static final String NAME = "BLOOMING";
 
     Sunflower flower;
 
@@ -22,7 +22,7 @@ public class SunflowerBloomState implements PlantState{
 
     @Override
     public void checkChange(long lifespan) {
-        if(lifespan > flower.growthDelay * 6) {
+        if(lifespan > Sunflower.GROWTH_DELAY * 6) {
             flower.state = flower.deadState;
         } else if(flower.environmentState.equals("SUNNY")) {
             flower.bloom();
@@ -34,6 +34,6 @@ public class SunflowerBloomState implements PlantState{
 
     @Override
     public String getName() {
-        return name;
+        return NAME;
     }
 }

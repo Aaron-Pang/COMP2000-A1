@@ -3,7 +3,7 @@ package growables.plant;
 import java.awt.*;
 
 public class DeadState implements PlantState{
-    public static final String name = "DEAD";
+    public static final String NAME = "DEAD";
 
     Plant plant;
 
@@ -31,6 +31,6 @@ public class DeadState implements PlantState{
 
     @Override
     public String getName() {
-        return name;
+        return NAME;
     }
 }

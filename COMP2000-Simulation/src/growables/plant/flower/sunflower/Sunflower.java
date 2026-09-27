@@ -8,12 +8,12 @@ import supplementary.Radius;
 
 public class Sunflower extends Flower {
     int spreadNum = 1;
-    static final int growthDelay = 5000;
-    static final int size = 50;
+    static final int GROWTH_DELAY = 5000;
+    static final int SIZE = 50;
     String environmentState;
 
     public Sunflower(Point position, Sky sky, Ground ground) {
-        super(position, growthDelay, size, sky, ground);
+        super(position, GROWTH_DELAY, SIZE, sky, ground);
 
         super.seedState = new SunflowerSeedState(this);
         super.juvenileState = new SunflowerJuvenileState(this);
@@ -29,7 +29,7 @@ public class Sunflower extends Flower {
     }
 
     Sunflower(Point position, double growthFactor, Sky sky, Ground ground) {
-        super(position, (int) (growthDelay / growthFactor), size, sky, ground); //grow at a different rate relative to standard sunflower
+        super(position, (int) (GROWTH_DELAY / growthFactor), SIZE, sky, ground); //grow at a different rate relative to standard sunflower
         this.position = position;
     }
 
