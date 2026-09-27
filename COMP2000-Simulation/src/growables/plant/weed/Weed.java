@@ -73,7 +73,7 @@ public class Weed extends Plant {
             double newY = position.y + direction.dy * random.nextInt(15, 20);
             try {
                 Point newPoint = new Point((int) newX, (int) newY);
-                getParent().add(new Weed(newPoint, direction, sky, ground));
+                ground.addGrowable(new Weed(newPoint, direction, sky, ground));
                 //Small chance to create an offshoot vine
                 if(random.nextInt(0, 5) == 0) {
                     //Create new weed with random direction
@@ -82,7 +82,7 @@ public class Weed extends Plant {
                     double startX = position.x + newDir.dx * random.nextInt(15, 20);
                     double startY = position.y + newDir.dy * random.nextInt(15, 20);
                     Point startPoint = new Point((int) startX, (int) startY);
-                    getParent().add(new Weed(startPoint, newDir, sky, ground));
+                    ground.addGrowable(new Weed(startPoint, newDir, sky, ground));
                 }
                 spent = true;
             } catch(InvalidPositionException p) {

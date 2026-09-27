@@ -56,7 +56,7 @@ public class Sunflower extends Flower {
         for(int i = 0; i < spreadNum; i++) {
             Point newPoint = radius.getRandomPoint();
             try {
-                getParent().add(new Sunflower(newPoint, sky, ground));
+                ground.addGrowable(new Sunflower(newPoint, sky, ground));
             } catch(InvalidPositionException p) {
                 System.out.println("Stopped OOB Sunflower");
             } catch(Exception e) {

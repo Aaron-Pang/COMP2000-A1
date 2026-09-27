@@ -64,7 +64,7 @@ public class Window extends JFrame{
     }
 
     public void addToGround(Growable g) {
-        ground.add(g);
+        ground.addGrowable(g);
     }
 
     public void removeFromGround(Component comp) {

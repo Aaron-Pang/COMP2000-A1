@@ -33,7 +33,7 @@ public class Ground extends JPanel{
     }
 
     //Should overload JPanel's add function
-    public void add(Growable g) {
+    public void addGrowable(Growable g) {
         System.out.println("Object added");
         placedObjects.add(g);
         super.add((Component) g);
