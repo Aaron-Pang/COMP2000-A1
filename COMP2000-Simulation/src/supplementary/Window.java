@@ -5,6 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.*;
 import placed_objects.Ground;
+import placed_objects.Patch;
 import placed_objects.sky.Sky;
 
 public class Window extends JFrame{
@@ -65,6 +66,10 @@ public class Window extends JFrame{
 
     public void addToGround(Growable g) {
         ground.addGrowable(g);
+    }
+
+    public void addToGround(Patch<?> p) {
+        ground.addPatch(p);
     }
 
     public void removeFromGround(Component comp) {

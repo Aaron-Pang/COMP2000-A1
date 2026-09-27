@@ -33,7 +33,6 @@ public class Ground extends JPanel{
         }
     }
 
-    //Should overload JPanel's add function
     public void addGrowable(Growable g) throws ObjectLimitExceededException {
         System.out.println("Object added");
         if(growables.size() >= MAX_OBJECTS) {
@@ -41,6 +40,11 @@ public class Ground extends JPanel{
         }
         growables.add(g);
         super.add((Component) g);
+    }
+
+    public void addPatch(Patch<?> p) {
+        System.out.println("Adding patch");
+        super.add((Component) p);
     }
 
     public void delete(Growable g) {
