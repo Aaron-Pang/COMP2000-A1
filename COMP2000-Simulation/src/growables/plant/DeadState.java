@@ -20,12 +20,13 @@ public class DeadState implements PlantState{
     public void checkChange(long lifespan) {
         if(lifespan > plant.growthDelay * 5) {
             //Delete plant
+            /*
             try {
                 plant.delete();
             } catch (Exception e) {
                 
             }
-            
+            */
         }
     }
 

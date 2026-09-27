@@ -29,9 +29,6 @@ public class Weed extends Plant {
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         random = new Random();
         direction = new Direction(random.nextInt(-20, 20), random.nextInt(-20, 20));
-
-        //Check if very close to another plant. If so, immediately die.
-        //TODO
     }
 
     Weed(Point position, Direction direction, Sky sky, Ground ground) {

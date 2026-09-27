@@ -31,6 +31,7 @@ public class Ground extends JPanel{
         for(Growable g : getGrowables()) {
             g.tick();
         }
+        getDead().stream().forEach(i -> delete(i));
     }
 
     public void addGrowable(Growable g) throws ObjectLimitExceededException {
@@ -53,5 +54,12 @@ public class Ground extends JPanel{
     public ArrayList<Growable> getGrowables() {
         //Create a new copy of the ArrayList to prevent concurrent modification
         return new ArrayList<>(growables);
+    }
+
+    public ArrayList<Growable> getDead() {
+        //Filter ArrayList for dead growables
+        ArrayList<Growable> list = getGrowables();
+        list.removeIf(i -> !i.getState().equals("DEAD"));
+        return list;
     }
 }
