@@ -1,4 +1,5 @@
 package supplementary;
+import growables.Growable;
 import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -62,8 +63,8 @@ public class Window extends JFrame{
         return ground;
     }
 
-    public void addToGround(Component comp) {
-        ground.add(comp);
+    public void addToGround(Growable g) {
+        ground.add(g);
     }
 
     public void removeFromGround(Component comp) {

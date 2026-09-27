@@ -63,7 +63,7 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
         ArrayList<Growable> growables = ground.getGrowables();
         for(Growable g : growables) {
             if(g != this && this.getHitbox().intersects(g.getHitbox())) {
-                System.out.println("Colliding");
+                System.out.println(this + " colliding with " + g);
                 return true;
             }
         }
@@ -95,10 +95,9 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
     }
 
     public void delete() {
-        Container parent = this.getParent();
-        parent.remove(this);
-        parent.revalidate();
-        parent.repaint();
+        ground.delete(this);
+        ground.revalidate();
+        ground.repaint();
     }
 
     @Override
