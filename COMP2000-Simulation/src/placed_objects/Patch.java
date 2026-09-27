@@ -1,11 +1,10 @@
 package placed_objects;
-import java.awt.*;
-import java.util.ArrayList;
-import javax.swing.*;
-
 import exceptions.InvalidParentException;
 import exceptions.OutOfPatchBoundsException;
 import growables.Growable;
+import java.awt.*;
+import java.util.ArrayList;
+import javax.swing.*;
 import supplementary.Radius;
 
 public class Patch<T extends Growable> extends JPanel{
@@ -22,7 +21,7 @@ public class Patch<T extends Growable> extends JPanel{
         
         this.setOpaque(false);
         this.setBackground(new Color(0, 0, 255, 125));
-        this.collection = new ArrayList<T>();
+        this.collection = new ArrayList<>();
     }
 
     //When this component added to a container, make sure it is of type ground
@@ -47,9 +46,8 @@ public class Patch<T extends Growable> extends JPanel{
     ArrayList<Growable> getObjectsInRadius() {
         ArrayList<Growable> items = new ArrayList<>();
         Component[] comps = parent.getComponents();
-        for(int i = 0; i < comps.length; i++) {
-            if(comps[i] instanceof Growable) {
-                Growable temp = (Growable) comps[i];
+        for(Component c : comps) {
+            if(c instanceof Growable temp) {
                 Point p = temp.getPosition();
                 if(patchArea.isPointInRadius(p)) {
                     items.add(temp);
