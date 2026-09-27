@@ -8,14 +8,14 @@ import supplementary.Window;
 
 public class Ground extends JPanel{
     static final int MAX_OBJECTS = 1024;
-    final ArrayList<Growable> placedObjects;
+    final ArrayList<Growable> growables;
 
     public Ground() {
         this.setPreferredSize(new Dimension(Window.WIN_WIDTH, Window.WIN_HEIGHT/4*3));
         this.setBackground(Color.green);
         this.setLayout(null);   //Freeform layout
 
-        placedObjects = new ArrayList<>();
+        growables = new ArrayList<>();
 
         //Trigger event whenever a new component is added to ground
         this.addContainerListener(new ContainerAdapter() {
@@ -35,24 +35,18 @@ public class Ground extends JPanel{
     //Should overload JPanel's add function
     public void addGrowable(Growable g) {
         System.out.println("Object added");
-        placedObjects.add(g);
+        growables.add(g);
         super.add((Component) g);
     }
 
     public void delete(Growable g) {
         System.out.println("Removing object");
-        placedObjects.remove(g);
+        growables.remove(g);
         remove((Component) g);
     }
 
     public ArrayList<Growable> getGrowables() {
-        Component[] items = getComponents();
-        ArrayList<Growable> growables = new ArrayList<>();
-        for(int i = 0; i < items.length; i++) {
-            if(items[i] instanceof Growable) {
-                growables.add((Growable) items[i]);
-            }
-        }
-        return growables;
+        //Create a new copy of the ArrayList to prevent concurrent modification
+        return new ArrayList<>(growables);
     }
 }
