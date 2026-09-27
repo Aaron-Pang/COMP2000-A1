@@ -3,7 +3,7 @@ package growables.plant;
 import java.awt.*;
 
 public class SeedState implements PlantState{
-    public static final String name = "SEED";
+    public static final String NAME = "SEED";
 
     Plant plant;
 

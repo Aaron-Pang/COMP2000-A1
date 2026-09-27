@@ -4,7 +4,7 @@ import java.awt.*;
 import supplementary.Window;
 
 public class NightState implements SkyState {
-    public static final String name = "NIGHT";
+    public static final String NAME = "NIGHT";
     Sky sky;
 
     public NightState(Sky sky) {

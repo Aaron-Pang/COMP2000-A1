@@ -4,7 +4,7 @@ import java.awt.*;
 import supplementary.Window;
 
 public class SunnyState implements SkyState{
-    public static final String name = "SUNNY";
+    public static final String NAME = "SUNNY";
     Sky sky;
 
     public SunnyState(Sky sky) {
