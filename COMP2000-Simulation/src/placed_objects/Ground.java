@@ -1,4 +1,5 @@
 package placed_objects;
+import exceptions.ObjectLimitExceededException;
 import growables.Growable;
 import java.awt.*;
 import java.awt.event.*;
@@ -7,7 +8,7 @@ import javax.swing.*;
 import supplementary.Window;
 
 public class Ground extends JPanel{
-    static final int MAX_OBJECTS = 1024;
+    static final int MAX_OBJECTS = 512;
     final ArrayList<Growable> growables;
 
     public Ground() {
@@ -33,8 +34,11 @@ public class Ground extends JPanel{
     }
 
     //Should overload JPanel's add function
-    public void addGrowable(Growable g) {
+    public void addGrowable(Growable g) throws ObjectLimitExceededException {
         System.out.println("Object added");
+        if(growables.size() >= MAX_OBJECTS) {
+            throw new ObjectLimitExceededException();
+        }
         growables.add(g);
         super.add((Component) g);
     }
