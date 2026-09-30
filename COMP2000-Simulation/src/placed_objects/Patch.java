@@ -41,6 +41,7 @@ public class Patch<T extends Growable> extends JPanel{
             throw new OutOfPatchBoundsException();
         }
         //item.increaseSpreadNum(2);
+        item.increaseLifespan(2);
     }
 
     ArrayList<Growable> getObjectsInRadius() {

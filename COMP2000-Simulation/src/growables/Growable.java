@@ -6,6 +6,7 @@ public interface Growable {
     public Point getPosition();
     public String getState();
     public void increaseSpreadNum(double factor);
+    public void increaseLifespan(double factor);
     public void tick();
     public Rectangle getHitbox();
     //public void kill();

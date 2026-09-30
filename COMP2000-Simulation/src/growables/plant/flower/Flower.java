@@ -7,6 +7,7 @@ import placed_objects.sky.Sky;
 
 public abstract class Flower extends Plant {
     public PlantState bloomState;
+    public int bloomTime = 6;
 
     public Flower(Point p, int size, Sky sky, Ground ground) {
         super(p, size, sky, ground);

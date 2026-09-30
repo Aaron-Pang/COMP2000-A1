@@ -93,6 +93,12 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
         state.paintComponent(g);
     }
 
+    @Override
+    //plant will by default simply increase the growth delay
+    public void increaseLifespan(double factor) {
+        growthDelay *= factor;
+    }
+
     public void delete() {
         ground.delete(this);
         ground.revalidate();

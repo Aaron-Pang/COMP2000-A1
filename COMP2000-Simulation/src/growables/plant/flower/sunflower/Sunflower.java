@@ -45,6 +45,12 @@ public class Sunflower extends Flower {
     }
 
     @Override
+    //Increasing a sunflower's lifespan actually increases the time it spends as an adult/blooming
+    public void increaseLifespan(double factor) {
+        bloomTime *= factor;
+    }
+
+    @Override
     public void spread() {
         Radius radius = new Radius(position, spreadRadius);
         for(int i = 0; i < spreadNum; i++) {
