@@ -1,5 +1,6 @@
 package growables.plant.weed;
 import exceptions.InvalidPositionException;
+import exceptions.ObjectLimitExceededException;
 import growables.plant.Plant;
 import java.awt.*;
 import java.util.Random;
@@ -12,7 +13,7 @@ import supplementary.Window;
 public class Weed extends Plant {
 
     int spreadNum = 1;
-    static final int growthDelay = 1000;
+    static final int weedGrowthDelay = 1000;
     static final int size = 10;
     String environmentState;
     public boolean spent = false;
@@ -21,8 +22,9 @@ public class Weed extends Plant {
     Random random;
 
     public Weed(Point position, Sky sky, Ground ground) {
-        super(position, growthDelay, size, sky, ground);
+        super(position, size, sky, ground);
         super.adultState = new WeedAdultState(this);
+        super.growthDelay = weedGrowthDelay;
 
         this.sky = sky;
         environmentState = sky.getState();
@@ -75,8 +77,8 @@ public class Weed extends Plant {
                 spent = true;
             } catch(InvalidPositionException p) {
                 System.out.println("Stopped OOB Weed");
-            } catch(NullPointerException e) {
-                System.out.println(e.getMessage());
+            } catch(ObjectLimitExceededException e) {
+                System.out.println("Too many objects, cannot create weed");
             }
         }
     }

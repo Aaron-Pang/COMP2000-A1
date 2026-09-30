@@ -22,7 +22,7 @@ public class SunflowerSeedState implements PlantState{
 
     @Override
     public void checkChange(long lifespan) {
-        if(lifespan > Sunflower.GROWTH_DELAY) {
+        if(lifespan > flower.sunflowerGrowthDelay) {
             flower.state = flower.seedlingState;
         }
     }

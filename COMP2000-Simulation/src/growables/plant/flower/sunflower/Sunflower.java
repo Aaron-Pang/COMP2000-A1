@@ -1,5 +1,6 @@
 package growables.plant.flower.sunflower;
 import exceptions.InvalidPositionException;
+import exceptions.ObjectLimitExceededException;
 import growables.plant.flower.*;
 import java.awt.*;
 import placed_objects.Ground;
@@ -8,12 +9,13 @@ import supplementary.Radius;
 
 public class Sunflower extends Flower {
     int spreadNum = 1;
-    static final int GROWTH_DELAY = 5000;
+    int sunflowerGrowthDelay = 5000;
     static final int SIZE = 50;
     String environmentState;
 
     public Sunflower(Point position, Sky sky, Ground ground) {
-        super(position, GROWTH_DELAY, SIZE, sky, ground);
+        super(position, SIZE, sky, ground);
+        super.growthDelay = sunflowerGrowthDelay;
 
         super.seedState = new SunflowerSeedState(this);
         super.juvenileState = new SunflowerJuvenileState(this);
@@ -47,12 +49,13 @@ public class Sunflower extends Flower {
         Radius radius = new Radius(position, spreadRadius);
         for(int i = 0; i < spreadNum; i++) {
             Point newPoint = radius.getRandomPoint();
+            //small chance to create patch around seedling
             try {
                 ground.addGrowable(new Sunflower(newPoint, sky, ground));
             } catch(InvalidPositionException p) {
                 System.out.println("Stopped OOB Sunflower");
-            } catch(Exception e) {
-                System.out.println("Cannot spread sunflower");
+            } catch(ObjectLimitExceededException e) {
+                System.out.println("Too many objects, cannot add sunflower");
             }
         }
     }

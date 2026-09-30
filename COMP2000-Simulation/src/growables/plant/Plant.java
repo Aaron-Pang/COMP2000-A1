@@ -25,10 +25,10 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
     public Sky sky;
     public Ground ground;
 
-    public int growthDelay;      //How long between growth states in milliseconds
+    public int growthDelay = 5000;      //How long between growth states in milliseconds
     public int spreadRadius;     //How far a plant can spread its seeds
 
-    public Plant(Point p, int growthDelay, int size, Sky sky, Ground ground) {
+    public Plant(Point p, int size, Sky sky, Ground ground) {
         seedState = new SeedState(this);
         seedlingState = new SeedlingState(this);
         juvenileState = new JuvenileState(this);
@@ -47,7 +47,6 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
         } else if (position.x > Window.WIN_WIDTH || position.x < 0 || position.y < 0 || position.y > Window.WIN_HEIGHT/4*3) {
             throw new InvalidPositionException("Position: " + position.x + ", " + position.y);
         }
-        this.growthDelay = growthDelay;
 
         this.position = p;
         this.setBounds(position.x, position.y, size, size);
