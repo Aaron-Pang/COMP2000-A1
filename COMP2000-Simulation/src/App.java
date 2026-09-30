@@ -14,11 +14,13 @@ public class App {
         
         Sunflower sf1 = new Sunflower(new Point(200, 200), window.getSky(), window.getGround());
         window.addToGround(sf1);
-        p.addToPatch(sf1);
+
+        sf1.givePatch(p);
 
         Sunflower sf2 = new Sunflower(new Point(1000, 500), window.getSky(), window.getGround());
         Weed w = new Weed(new Point(600, 350), window.getSky(), window.getGround());
         
+        sf2.givePatch(p);
         window.addToGround(sf2);
         window.addToGround(w);
     }

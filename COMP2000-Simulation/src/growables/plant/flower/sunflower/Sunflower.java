@@ -5,6 +5,7 @@ import exceptions.OutOfPatchBoundsException;
 import growables.plant.flower.*;
 import java.awt.*;
 import placed_objects.Ground;
+import placed_objects.Patch;
 import placed_objects.sky.Sky;
 import supplementary.Radius;
 
@@ -13,6 +14,7 @@ public class Sunflower extends Flower {
     int sunflowerGrowthDelay = 5000;
     static final int SIZE = 50;
     String environmentState;
+    Patch<Sunflower> patch;
 
     public Sunflower(Point position, Sky sky, Ground ground) {
         super(position, SIZE, sky, ground);
@@ -56,12 +58,13 @@ public class Sunflower extends Flower {
         Radius radius = new Radius(position, spreadRadius);
         for(int i = 0; i < spreadNum; i++) {
             Point newPoint = radius.getRandomPoint();
-            //small chance to create patch around seedling
             try {
                 Sunflower child = new Sunflower(newPoint, sky, ground);
                 ground.addGrowable(child);
                 if(patch != null) {
-                    patch.addToPatch(child);
+                    child.givePatch(patch);
+                } else {
+                    child.checkPatchCreate();
                 }
             } catch(InvalidPositionException e) {
                 System.out.println("Stopped OOB Sunflower");
@@ -70,6 +73,26 @@ public class Sunflower extends Flower {
             } catch(OutOfPatchBoundsException e) {
                 //Could not add child to patch
             }
+        }
+    }
+
+    public void givePatch(Patch<Sunflower> p) {
+        try {
+            p.addToPatch(this);
+            patch = p;
+        } catch (OutOfPatchBoundsException e) {
+            
+        }
+            
+    }
+
+    public void checkPatchCreate() {
+        System.out.println("Chancing");
+        if(patch == null && (int) (Math.random() * 0) == 0) {
+            System.out.println("Creating patch");
+            patch = new Patch<>(100, position);
+            ground.addPatch(patch);
+            patch.addToPatch(this);
         }
     }
 
