@@ -81,14 +81,14 @@ public class Sunflower extends Flower {
             p.addToPatch(this);
             patch = p;
         } catch (OutOfPatchBoundsException e) {
-            
+            checkPatchCreate();
         }
             
     }
 
     public void checkPatchCreate() {
         System.out.println("Chancing");
-        if(patch == null && (int) (Math.random() * 0) == 0) {
+        if(patch == null && (int) (Math.random() * 5) == 0) {
             System.out.println("Creating patch");
             patch = new Patch<>(100, position);
             ground.addPatch(patch);
