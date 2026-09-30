@@ -1,6 +1,7 @@
 package growables.plant.weed;
 import exceptions.InvalidPositionException;
 import exceptions.ObjectLimitExceededException;
+import exceptions.OutOfPatchBoundsException;
 import growables.plant.Plant;
 import java.awt.*;
 import java.util.Random;
@@ -64,7 +65,15 @@ public class Weed extends Plant {
             double newY = position.y + direction.dy * random.nextInt(15, 20);
             try {
                 Point newPoint = new Point((int) newX, (int) newY);
-                ground.addGrowable(new Weed(newPoint, direction, sky, ground));
+                Weed child1 = new Weed(newPoint, direction, sky, ground);
+                ground.addGrowable(child1);
+                if(patch != null) {
+                    try {
+                        patch.addToPatch(child1);
+                    } catch(OutOfPatchBoundsException e) {
+                        //Weed outside of patch bounds
+                    }
+                }
                 //Small chance to create an offshoot vine
                 if(random.nextInt(0, 5) == 0) {
                     //Create new weed with random direction
@@ -72,7 +81,15 @@ public class Weed extends Plant {
                     double startX = position.x + newDir.dx * random.nextInt(15, 20);
                     double startY = position.y + newDir.dy * random.nextInt(15, 20);
                     Point startPoint = new Point((int) startX, (int) startY);
-                    ground.addGrowable(new Weed(startPoint, newDir, sky, ground));
+                    Weed child2 = new Weed(startPoint, newDir, sky, ground);
+                    ground.addGrowable(child2);
+                    if(patch != null) {
+                    try {
+                        patch.add(child2);
+                    } catch(OutOfPatchBoundsException e) {
+                        //Weed outside of patch bounds
+                    }
+                }
                 }
                 spent = true;
             } catch(InvalidPositionException p) {

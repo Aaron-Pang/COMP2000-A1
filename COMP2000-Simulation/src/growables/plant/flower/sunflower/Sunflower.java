@@ -1,6 +1,7 @@
 package growables.plant.flower.sunflower;
 import exceptions.InvalidPositionException;
 import exceptions.ObjectLimitExceededException;
+import exceptions.OutOfPatchBoundsException;
 import growables.plant.flower.*;
 import java.awt.*;
 import placed_objects.Ground;
@@ -57,11 +58,17 @@ public class Sunflower extends Flower {
             Point newPoint = radius.getRandomPoint();
             //small chance to create patch around seedling
             try {
-                ground.addGrowable(new Sunflower(newPoint, sky, ground));
-            } catch(InvalidPositionException p) {
+                Sunflower child = new Sunflower(newPoint, sky, ground);
+                ground.addGrowable(child);
+                if(patch != null) {
+                    patch.addToPatch(child);
+                }
+            } catch(InvalidPositionException e) {
                 System.out.println("Stopped OOB Sunflower");
             } catch(ObjectLimitExceededException e) {
                 System.out.println("Too many objects, cannot add sunflower");
+            } catch(OutOfPatchBoundsException e) {
+                //Could not add child to patch
             }
         }
     }

@@ -1,5 +1,6 @@
 package growables;
 import java.awt.*;
+import placed_objects.Patch;
 
 public interface Growable {
     public void spread();     //Different things spread in different ways, e.g. wind, bees, spores
@@ -9,5 +10,5 @@ public interface Growable {
     public void increaseLifespan(double factor);
     public void tick();
     public Rectangle getHitbox();
-    //public void kill();
+    public void givePatch(Patch<? extends Growable> p);
 }

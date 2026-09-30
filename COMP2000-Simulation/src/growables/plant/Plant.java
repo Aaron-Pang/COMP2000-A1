@@ -6,6 +6,7 @@ import java.time.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import placed_objects.Ground;
+import placed_objects.Patch;
 import placed_objects.sky.Sky;
 import placed_objects.sky.SkyObserver;
 import supplementary.Window;
@@ -24,6 +25,7 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
     public Point position;
     public Sky sky;
     public Ground ground;
+    public Patch patch;
 
     public int growthDelay = 5000;      //How long between growth states in milliseconds
     public int spreadRadius;     //How far a plant can spread its seeds
@@ -97,6 +99,14 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
     //plant will by default simply increase the growth delay
     public void increaseLifespan(double factor) {
         growthDelay *= factor;
+    }
+
+    @Override
+    public void givePatch(Patch<? extends Growable> p) {
+        if(patch == null) {
+            patch = p;
+            System.out.println("Added to patch");
+        }
     }
 
     public void delete() {
