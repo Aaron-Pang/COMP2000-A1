@@ -9,4 +9,8 @@ public interface Growable {
     public void increaseLifespan(double factor);
     public void tick();
     public Rectangle getHitbox();
+    public void fightAgainst(Growable g);
+    public int getFightingPower();
+    public void loseFight();
+    public Growable isColliding();
 }

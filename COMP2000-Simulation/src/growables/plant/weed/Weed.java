@@ -13,7 +13,7 @@ import supplementary.Window;
 public class Weed extends Plant {
 
     int spreadNum = 1;
-    static final int weedGrowthDelay = 1000;
+    static final int growthDelay = 1000;
     static final int size = 10;
     String environmentState;
     public boolean spent = false;
@@ -24,7 +24,7 @@ public class Weed extends Plant {
     public Weed(Point position, Sky sky, Ground ground) {
         super(position, size, sky, ground);
         super.adultState = new WeedAdultState(this);
-        super.growthDelay = weedGrowthDelay;
+        super.growthDelay = growthDelay;
 
         this.sky = sky;
         environmentState = sky.getState();

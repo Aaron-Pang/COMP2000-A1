@@ -11,14 +11,14 @@ import supplementary.Radius;
 
 public class Sunflower extends Flower {
     int spreadNum = 1;
-    int sunflowerGrowthDelay = 5000;
+    int growthDelay = 5000;
     static final int SIZE = 50;
     String environmentState;
     Patch<Sunflower> patch;
 
     public Sunflower(Point position, Sky sky, Ground ground) {
         super(position, SIZE, sky, ground);
-        super.growthDelay = sunflowerGrowthDelay;
+        super.growthDelay = growthDelay;
 
         super.seedState = new SunflowerSeedState(this);
         super.juvenileState = new SunflowerJuvenileState(this);
@@ -88,7 +88,7 @@ public class Sunflower extends Flower {
 
     public void checkPatchCreate() {
         System.out.println("Chancing");
-        if(patch == null && (int) (Math.random() * 5) == 0) {
+        if(patch == null && (int) (Math.random() * 10) == 0) {
             System.out.println("Creating patch");
             patch = new Patch<>(100, position);
             ground.addPatch(patch);

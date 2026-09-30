@@ -27,6 +27,7 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
 
     public int growthDelay = 5000;      //How long between growth states in milliseconds
     public int spreadRadius;     //How far a plant can spread its seeds
+    public int fightingPower = 5; //Scaled from 0 to 10 where
 
     public Plant(Point p, int size, Sky sky, Ground ground) {
         seedState = new SeedState(this);
@@ -58,15 +59,43 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
         sky.registerObserver(this);
     }
 
-    public boolean isColliding() {
+    @Override
+    public Growable isColliding() {
         ArrayList<Growable> growables = ground.getGrowables();
         for(Growable g : growables) {
             if(g != this && this.getHitbox().intersects(g.getHitbox())) {
-                //Call function to determine which plant wins
-                return true;
+                return g;
             }
         }
-        return false;
+        return null;
+    }
+
+    @Override
+    public void fightAgainst(Growable opponent) {
+        System.out.println("Fighting");
+        int opponentPower = opponent.getFightingPower();
+        int outcome = fightingPower - opponentPower;
+        // Base chance to win 50%
+        // add 10% * difference in fighting power
+        double victoryChance = 0.5 + 0.1 * outcome;
+        if(Math.random() <= victoryChance) {
+            //This plant wins, opponent dies
+            opponent.loseFight();
+        } else {
+            //This plant loses
+            loseFight();
+        }
+    }
+
+    @Override
+    public void loseFight() {
+        //Mark this plant for deletion
+        state = deadState;
+    }
+
+    @Override
+    public int getFightingPower() {
+        return fightingPower;
     }
 
     public boolean isColliding(Growable g) {
@@ -75,8 +104,9 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
 
     @Override
     public void tick() {
-        if(isColliding()) {
-            delete();
+        Growable g = isColliding();
+        if(g != null) {
+          fightAgainst(g);  
         }
 
         Instant now = Instant.now();
