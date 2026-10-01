@@ -21,6 +21,7 @@ public class SunflowerAdultState implements PlantState{
 
     @Override
     public void checkChange(long lifespan) {
+        flower.fightingPower = 6;   //Sunflowers slightly more resilient during night
         //If day and adult, set state to blooming
         if(lifespan > flower.growthDelay * flower.bloomTime) {
             flower.state = flower.deadState;

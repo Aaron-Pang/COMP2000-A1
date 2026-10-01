@@ -22,6 +22,7 @@ public class SunflowerBloomState implements PlantState{
 
     @Override
     public void checkChange(long lifespan) {
+        flower.fightingPower = 5;
         if(lifespan > flower.growthDelay * flower.bloomTime) {
             flower.state = flower.deadState;
         } else if(flower.environmentState.equals("SUNNY")) {

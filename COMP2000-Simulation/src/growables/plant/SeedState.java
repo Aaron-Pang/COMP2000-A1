@@ -18,6 +18,7 @@ public class SeedState implements PlantState{
 
     @Override
     public void checkChange(long lifespan) {
+        plant.fightingPower = 2;
         if(lifespan > plant.growthDelay) {
             plant.state = plant.seedlingState;
         }

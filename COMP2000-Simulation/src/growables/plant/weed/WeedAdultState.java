@@ -13,6 +13,7 @@ public class WeedAdultState implements PlantState {
 
     @Override
     public void checkChange(long lifespan) {
+        weed.fightingPower = 5;
         weed.spread();
         if (lifespan > 20000 + (weed.random.nextInt(0, 20) * 1000)) {
             weed.state = weed.deadState;

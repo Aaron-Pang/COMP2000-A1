@@ -43,18 +43,4 @@ public class Patch<T extends Growable> extends JPanel{
         }
         item.increaseLifespan(2);
     }
-
-    ArrayList<Growable> getObjectsInRadius() {
-        ArrayList<Growable> items = new ArrayList<>();
-        Component[] comps = parent.getComponents();
-        for(Component c : comps) {
-            if(c instanceof Growable temp) {
-                Point p = temp.getPosition();
-                if(patchArea.isPointInRadius(p)) {
-                    items.add(temp);
-                }
-            }
-        }
-        return items;
-    }
 }
