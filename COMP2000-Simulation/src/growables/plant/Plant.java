@@ -28,6 +28,7 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
     public int growthDelay = 5000;      //How long between growth states in milliseconds
     public int spreadRadius;     //How far a plant can spread its seeds
     public int fightingPower = 5; //Scaled from 0 to 10 where
+    public boolean fighting = false;
 
     public Plant(Point p, int size, Sky sky, Ground ground) {
         seedState = new SeedState(this);
@@ -73,6 +74,8 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
     @Override
     public void fightAgainst(Growable opponent) {
         System.out.println("Fighting");
+        fighting = true;
+        opponent.setFighting(true);
         int opponentPower = opponent.getFightingPower();
         int outcome = fightingPower - opponentPower;
         // Base chance to win 50%
@@ -81,9 +84,11 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
         if(Math.random() <= victoryChance) {
             //This plant wins, opponent dies
             opponent.loseFight();
+            fighting = false;
         } else {
             //This plant loses
             loseFight();
+            opponent.setFighting(false);
         }
     }
 
@@ -103,9 +108,19 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
     }
 
     @Override
+    public boolean getFighting() {
+        return fighting;
+    }
+
+    @Override
+    public void setFighting(boolean state) {
+        fighting = state;
+    }
+
+    @Override
     public void tick() {
         Growable g = isColliding();
-        if(g != null) {
+        if(g != null && !fighting && !g.getFighting()) {
           fightAgainst(g);  
         }
 

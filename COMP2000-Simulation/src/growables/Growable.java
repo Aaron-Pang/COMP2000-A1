@@ -13,4 +13,6 @@ public interface Growable {
     public int getFightingPower();
     public void loseFight();
     public Growable isColliding();
+    public void setFighting(boolean state);
+    public boolean getFighting();
 }

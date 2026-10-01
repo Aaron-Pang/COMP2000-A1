@@ -32,6 +32,8 @@ public class Ground extends JPanel{
             g.tick();
         }
         getDead().stream().forEach(i -> delete(i));
+        repaint();
+        revalidate();
     }
 
     public void addGrowable(Growable g) throws ObjectLimitExceededException {
