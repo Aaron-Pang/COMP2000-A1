@@ -28,9 +28,7 @@ public class Ground extends JPanel{
     }
 
     public void tick() {
-        for(Growable g : getGrowables()) {
-            g.tick();
-        }
+        getGrowables().stream().forEach(i -> i.tick());
         getDead().stream().forEach(i -> delete(i));
         repaint();
         revalidate();
