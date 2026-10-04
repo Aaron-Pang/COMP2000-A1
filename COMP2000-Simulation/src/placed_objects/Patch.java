@@ -24,6 +24,11 @@ public class Patch<T extends Growable> extends JPanel{
         this.collection = new ArrayList<>();
     }
 
+    public boolean isEmpty() {
+        System.out.println("patch empty? " + collection.isEmpty());
+        return collection.isEmpty();
+    }
+
     //When this component added to a container, make sure it is of type ground
     @Override
     public void addNotify() throws InvalidParentException {
@@ -42,5 +47,9 @@ public class Patch<T extends Growable> extends JPanel{
             throw new OutOfPatchBoundsException();
         }
         item.increaseLifespan(2);
+    }
+
+    public void removeFromPatch(T item) {
+        collection.remove(item);
     }
 }

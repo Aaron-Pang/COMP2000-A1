@@ -15,4 +15,5 @@ public interface Growable {
     public Growable isColliding();
     public void setFighting(boolean state);
     public boolean getFighting();
+    public void prepareForRemoval();
 }

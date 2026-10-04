@@ -72,6 +72,11 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
     }
 
     @Override
+    public void prepareForRemoval() {
+        
+    }
+
+    @Override
     public void fightAgainst(Growable opponent) {
         System.out.println("Fighting");
         fighting = true;

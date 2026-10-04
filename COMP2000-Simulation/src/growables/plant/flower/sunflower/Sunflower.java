@@ -31,6 +31,13 @@ public class Sunflower extends Flower {
     }
 
     @Override
+    public void prepareForRemoval() {
+        if(patch != null) {
+            patch.removeFromPatch(this);
+        }
+    }
+
+    @Override
     public void bloom() {
         if ((int) (Math.random() * 150) == 0) {
             spread();
