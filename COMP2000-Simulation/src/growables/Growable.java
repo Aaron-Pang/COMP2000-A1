@@ -16,4 +16,5 @@ public interface Growable {
     public void setFighting(boolean state);
     public boolean getFighting();
     public void prepareForRemoval();
+    public int getDistanceFrom(Point p);
 }

@@ -123,6 +123,11 @@ public abstract class Plant extends JPanel implements Growable, SkyObserver{
     }
 
     @Override
+    public int getDistanceFrom(Point p) {
+        return (int) p.distance(position);
+    }
+
+    @Override
     public void tick() {
         Growable g = isColliding();
         if(g != null && !fighting && !g.getFighting()) {
