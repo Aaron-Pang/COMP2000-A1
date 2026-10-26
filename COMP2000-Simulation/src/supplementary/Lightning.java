@@ -16,13 +16,7 @@ public class Lightning {
     // Growables will be affected differently by the lightning depending on how far
     // away they are.
 
-    Ground ground;
-    Point pos;
 
-    public Lightning(Ground ground, Point pos) {
-        //this.ground = ground;
-        //this.pos = pos;
-    }
 
     public static Map<String, List<Growable>> categoriseGrowables(Ground ground, Point pos) {
         Map<String, List<Growable>> growablesByDistance = ground.getGrowables().stream()
