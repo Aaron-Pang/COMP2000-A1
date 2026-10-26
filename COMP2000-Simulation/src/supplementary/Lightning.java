@@ -19,20 +19,22 @@ public class Lightning {
     Ground ground;
     Point pos;
 
-    public Lightning(Ground ground) {
-        this.ground = ground;
+    public Lightning(Ground ground, Point pos) {
+        //this.ground = ground;
+        //this.pos = pos;
     }
 
-    public Map<String, List<Growable>> categoriseGrowables() {
+    public static Map<String, List<Growable>> categoriseGrowables(Ground ground, Point pos) {
         Map<String, List<Growable>> growablesByDistance = ground.getGrowables().stream()
+                .filter(g -> g.getDistanceFrom(pos) < 300)
+                .parallel()
                 .collect(Collectors.groupingBy(g -> {
                     if (g.getDistanceFrom(pos) < 200)
                         return "NEAR";
-                    else if (g.getDistanceFrom(pos) < 300)
-                        return "MEDIUM";
                     else
                         return "FAR";
                 }));
+        System.out.println(growablesByDistance);
         return growablesByDistance;
     }
 }

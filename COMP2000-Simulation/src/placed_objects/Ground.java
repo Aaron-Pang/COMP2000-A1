@@ -7,12 +7,14 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import javax.swing.*;
+import supplementary.LightningEvent;
 import supplementary.Window;
 
 public class Ground extends JPanel {
     static final int MAX_OBJECTS = 512;
     final ArrayList<Growable> growables;
     final ArrayList<Patch<? extends Growable>> patches;
+    LightningEvent e;
 
     public Ground() {
         this.setPreferredSize(new Dimension(Window.WIN_WIDTH, Window.WIN_HEIGHT / 4 * 3));
@@ -29,12 +31,13 @@ public class Ground extends JPanel {
                 // Notify observers
             }
         });
+        e = new LightningEvent(this);
+        this.addMouseListener(e);
     }
 
     public void tick() {
         ArrayList<Growable> dead = getDead();
         getGrowables().stream().forEach(i -> i.tick());
-        dead.stream().forEach(i -> i.prepareForRemoval());
         dead.stream().forEach(i -> delete(i));
         getEmptyPatches().stream().forEach(i -> delete(i));
         repaint();
@@ -70,25 +73,16 @@ public class Ground extends JPanel {
     }
 
     public ArrayList<Patch<? extends Growable>> getEmptyPatches() {
-        /*
-         * ArrayList<Patch<? extends Growable>> empty = new ArrayList<>();
-         * for (Patch<? extends Growable> p : patches) {
-         * if(p.isEmpty()) {
-         * empty.add(p);
-         * }
-         * }
-         * 
-         * return empty;
-         */
-
-        return patches.stream().filter(Patch::isEmpty).collect(Collectors.toCollection(ArrayList::new));
+        return patches.stream()
+                      .filter(Patch::isEmpty)
+                      .parallel()
+                      .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public ArrayList<Growable> getDead() {
-        // Filter ArrayList for dead growables
-        // ArrayList<Growable> list = getGrowables();
-        // list.removeIf(i -> !i.getState().equals("DEAD"));
-        return getGrowables().stream().filter(x -> x.getState().equals("DEAD"))
-                .collect(Collectors.toCollection(ArrayList::new));
+        return getGrowables().stream()
+                             .filter(x -> x.getState().equals("DEAD"))
+                             .parallel()
+                             .collect(Collectors.toCollection(ArrayList::new));
     }
 }

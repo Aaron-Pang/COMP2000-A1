@@ -8,6 +8,7 @@ import supplementary.Window;
 public class Sky extends JPanel implements SkySubject{
     SkyState sunnyState;
     SkyState nightState;
+    SkyState stormyState;
 
     SkyState state;
 
@@ -20,6 +21,7 @@ public class Sky extends JPanel implements SkySubject{
     public Sky() {
         sunnyState = new SunnyState(this);
         nightState = new NightState(this);
+        stormyState = new StormyState(this);
         state = sunnyState;
 
         observers = new ArrayList<>();
