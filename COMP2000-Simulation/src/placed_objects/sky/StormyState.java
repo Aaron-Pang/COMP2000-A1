@@ -14,9 +14,9 @@ public class StormyState implements SkyState {
 
     @Override
     public void paintComponent(Graphics g) {
-        sky.setBackground(new Color(0,0,0));
-        //Add random chance for lightning to strike
-        if((int) (Math.random() * 100) == 0) {
+        sky.setBackground(new Color(128,128,128));
+        //random chance for lightning to strike
+        if((int) (Math.random() * 200) == 0) {
             //Summon lightning
             Point p = new Point((int) (Math.random() * supplementary.Window.WIN_WIDTH), (int) (Math.random() * supplementary.Window.WIN_HEIGHT));
             Lightning.strike(sky.ground, p);
@@ -26,14 +26,8 @@ public class StormyState implements SkyState {
 
     @Override
     public void checkChange() {
-        if(sky.hour % 12000 == 0) {
-            if(sky.hour < 12000) {
-                //Day
-                sky.state = sky.sunnyState;
-            } else {
-                //Night
-                sky.state = sky.nightState;
-            }
+        if(sky.hour < 12000) {
+            sky.state = sky.sunnyState;
             sky.notifyObservers();
         }
     }

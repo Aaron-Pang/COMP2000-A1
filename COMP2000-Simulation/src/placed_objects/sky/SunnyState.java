@@ -22,7 +22,7 @@ public class SunnyState implements SkyState{
     @Override
     public void checkChange() {
         if(sky.hour >= 12000) {
-            if((int) (Math.random() * 0) == 0) {
+            if((int) (Math.random() * 3) == 0) {
                 //Change to storm
                 sky.state = sky.stormyState;
             } else {

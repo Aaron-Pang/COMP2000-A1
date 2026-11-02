@@ -28,7 +28,7 @@ public class Lightning {
                     else
                         return "FAR";
                 }));
-        System.out.println(growablesByDistance);
+        //System.out.println(growablesByDistance);
         return growablesByDistance;
     }
 

@@ -10,7 +10,7 @@ import placed_objects.Ground;
 public class ImpactPoint extends JPanel {
     Point position;
     long startTime;
-    public static int lifespan = 5000;
+    public static int lifespan = 500;
     Ground ground;
 
     ImpactPoint(Point position, Ground ground) {
@@ -19,7 +19,7 @@ public class ImpactPoint extends JPanel {
         this.ground = ground;
         ground.addImpact(this);
         this.setOpaque(false);
-        this.setBounds(position.x-50, position.y-50, 100, 100);
+        this.setBounds(position.x-100, position.y-100, 200, 200);
     }
 
     public void tick() {
@@ -30,11 +30,10 @@ public class ImpactPoint extends JPanel {
     @Override 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        //System.out.println(Instant.now().toEpochMilli() > startTime + lifespan);
         if(Instant.now().toEpochMilli() > startTime + lifespan) {
             ground.remove(this);
         } 
-        g.setColor(new Color(255, 0 , 0));
-        g.fillOval(0, 0, 100, 100);
+        g.setColor(new Color(255, 255, 0));
+        g.fillOval(0, 0, 200, 200);
     }
 }
