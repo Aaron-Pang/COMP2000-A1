@@ -49,6 +49,11 @@ public class Weed extends Plant {
     }
 
     @Override
+    public void prepareForRemoval() {
+
+    }
+
+    @Override
     public void increaseSpreadNum(double factor) {
         spreadNum = (int) factor * spreadNum;
     }
@@ -83,6 +88,11 @@ public class Weed extends Plant {
                 System.out.println("Too many objects, cannot create weed");
             }
         }
+    }
+
+    @Override 
+    public void setDead() {
+        state = deadState;
     }
 
     public String toString() {

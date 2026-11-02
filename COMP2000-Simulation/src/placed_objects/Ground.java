@@ -7,6 +7,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import javax.swing.*;
+import supplementary.ImpactPoint;
 import supplementary.LightningEvent;
 import supplementary.Window;
 
@@ -14,6 +15,7 @@ public class Ground extends JPanel {
     static final int MAX_OBJECTS = 512;
     final ArrayList<Growable> growables;
     final ArrayList<Patch<? extends Growable>> patches;
+    final ArrayList<ImpactPoint> impacts;
     LightningEvent e;
 
     public Ground() {
@@ -23,6 +25,7 @@ public class Ground extends JPanel {
 
         growables = new ArrayList<>();
         patches = new ArrayList<>();
+        impacts = new ArrayList<>();
 
         // Trigger event whenever a new component is added to ground
         this.addContainerListener(new ContainerAdapter() {
@@ -38,6 +41,7 @@ public class Ground extends JPanel {
     public void tick() {
         ArrayList<Growable> dead = getDead();
         getGrowables().stream().forEach(i -> i.tick());
+        impacts.stream().forEach(i -> i.tick());
         dead.stream().forEach(i -> delete(i));
         getEmptyPatches().stream().forEach(i -> delete(i));
         repaint();
@@ -65,6 +69,11 @@ public class Ground extends JPanel {
     public void delete(Patch<? extends Growable> p) {
         patches.remove(p);
         remove(p);
+    }
+
+    public void addImpact(ImpactPoint i) {
+        impacts.add(i);
+        super.add(i);
     }
 
     public ArrayList<Growable> getGrowables() {

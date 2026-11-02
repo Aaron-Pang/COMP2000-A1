@@ -31,4 +31,15 @@ public class Lightning {
         System.out.println(growablesByDistance);
         return growablesByDistance;
     }
+
+    public static void strike(Ground ground, Point p) {
+        new ImpactPoint(p, ground);
+        Map<String, List<Growable>> affectedObjects = categoriseGrowables(ground, p);
+        List<Growable> near = affectedObjects.get("NEAR");
+        if(near != null) {
+            for(Growable g : near) {
+                g.setDead();
+            }
+        }
+    }
 }

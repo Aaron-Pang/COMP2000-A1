@@ -30,6 +30,11 @@ public class Sunflower extends Flower {
         environmentState = sky.getState();
     }
 
+    @Override 
+    public void setDead() {
+        state = deadState;
+    }
+
     @Override
     public void prepareForRemoval() {
         if(patch != null) {

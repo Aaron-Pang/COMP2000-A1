@@ -3,6 +3,7 @@ import java.awt.*;
 import java.time.*;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import placed_objects.Ground;
 import supplementary.Window;
 
 public class Sky extends JPanel implements SkySubject{
@@ -15,14 +16,16 @@ public class Sky extends JPanel implements SkySubject{
     public Instant startTime;
     public long dayTime;
     public int hour;    //Divide by 1000 for the hour
+    public Ground ground;
 
     private final ArrayList<SkyObserver> observers;
 
-    public Sky() {
+    public Sky(Ground ground) {
         sunnyState = new SunnyState(this);
         nightState = new NightState(this);
         stormyState = new StormyState(this);
         state = sunnyState;
+        this.ground = ground;
 
         observers = new ArrayList<>();
 
