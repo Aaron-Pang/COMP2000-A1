@@ -18,6 +18,7 @@ public class ImpactPoint extends JPanel {
         startTime = Instant.now().toEpochMilli();
         this.ground = ground;
         ground.addImpact(this);
+        this.setOpaque(false);
         this.setBounds(position.x-50, position.y-50, 100, 100);
     }
 

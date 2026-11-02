@@ -33,7 +33,7 @@ public class Lightning {
     }
 
     public static void strike(Ground ground, Point p) {
-        new ImpactPoint(p, ground);
+        new ImpactPoint(p, ground);     //This object adds itself to the window so we don't need to track it
         Map<String, List<Growable>> affectedObjects = categoriseGrowables(ground, p);
         List<Growable> near = affectedObjects.get("NEAR");
         if(near != null) {
