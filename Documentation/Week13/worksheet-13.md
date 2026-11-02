@@ -35,7 +35,7 @@ This was used in Sky, Plant, Flower, Sunflower, and Weed.
 I picked the observer pattern since it seemed like it struck the best balance between efficiency and simplicity. Before learning about this design pattern, I was considering emulating it's behaviour by having each plant check the state of the sky with every tick. While this would have technically worked, I suspect it would have performed poorly, since instead of waiting for updates passively, the Growable items would all be actively checking for changes every tick, multiplied for each plant in the window.
 
 *State pattern:*
-Before learning about the state pattern, I'd implemented Plant states by simply creating abstract methods within the Plant superclass, overriding them to create specific behaviour. This was an inelegant solution, since the Sunflower has a blooming state which the Weed does not, so I would need to create an abstract bloom method in Plant, and override it to do nothing in Weed. Using the state pattern however, I was able to customise the states of one specialised object without modifying the superclass or effecting other subclasses in any way.
+Before learning about the state pattern, I had implemented Plant states by simply creating abstract methods within the Plant superclass, overriding them to create specific behaviour. This was an inelegant solution, since the Sunflower has a blooming state which the Weed does not, so I would need to create an abstract bloom method in Plant, and override it to do nothing in Weed. Using the state pattern however, I was able to customise the states of one specialised object without modifying the superclass or effecting other subclasses in any way.
 
 
 
@@ -96,9 +96,12 @@ Before learning about the state pattern, I'd implemented Plant states by simply 
 **4.2.** Reflect on the semester:
 
 - What was the most important concept you learned?
+I feel that design patterns were the most important concept I learnt. I feel more able to find and interpret design patterns outside of the ones taught in this unit, and the structure they provide programs seems to very often be valuable in terms of code maintainability. They were the most impactful on how I designed this program, since I how I would think to do so without them turned out to be much more complicated than it needed to be with design patterns.
 
 - What design trade-off did you face, and how did you resolve it?
 
 - If you started over, what would you do differently?
+Were I to start over, I would make the simulation grid-based, since I feel this would have made development easier, allow me to more easily integrate certain rubric points, and made it more clear to viewers of the simulation how plants grow and spread. I would also look into design patterns outside of the ones taught by this unit, since there are areas in the program that I feel like have higher coupling than necessary, but wasn' able to figure out how to solve myself.
 
 - What feedback from the Week 7 submission did you act on?
+I increased the detail my logbook entries went into, including reflections on how I could implement class content into my program and how this would be useful to me or in general.
