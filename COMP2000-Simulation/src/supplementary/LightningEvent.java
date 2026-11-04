@@ -28,7 +28,7 @@ public class LightningEvent implements MouseListener{
     @Override 
     public void mouseClicked(MouseEvent e) {
         System.out.println("Mouse clicked");
-        Lightning.categoriseGrowables(ground, e.getPoint());
+        Lightning.strike(ground, e.getPoint());
     }
 
     @Override 

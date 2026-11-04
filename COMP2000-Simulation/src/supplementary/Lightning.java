@@ -4,7 +4,6 @@ import growables.Growable;
 import java.awt.Point;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import placed_objects.Ground;
 
 public class Lightning {
@@ -18,24 +17,19 @@ public class Lightning {
 
 
 
-    public static Map<String, List<Growable>> categoriseGrowables(Ground ground, Point pos) {
-        Map<String, List<Growable>> growablesByDistance = ground.getGrowables().stream()
+    public static Map<Boolean, List<Growable>> categoriseGrowables(Ground ground, Point pos) {
+        Map<Boolean, List<Growable>> growablesByDistance = ground.getGrowables().stream()
                 .filter(g -> g.getDistanceFrom(pos) < 300)
                 .parallel()
-                .collect(Collectors.groupingBy(g -> {
-                    if (g.getDistanceFrom(pos) < 200)
-                        return "NEAR";
-                    else
-                        return "FAR";
-                }));
+                .collect(new LightningRadiusCollector(pos));
         //System.out.println(growablesByDistance);
         return growablesByDistance;
     }
 
     public static void strike(Ground ground, Point p) {
         new ImpactPoint(p, ground);     //This object adds itself to the window so we don't need to track it
-        Map<String, List<Growable>> affectedObjects = categoriseGrowables(ground, p);
-        List<Growable> near = affectedObjects.get("NEAR");
+        Map<Boolean, List<Growable>> affectedObjects = categoriseGrowables(ground, p);
+        List<Growable> near = affectedObjects.get(true);
         if(near != null) {
             for(Growable g : near) {
                 g.setDead();
