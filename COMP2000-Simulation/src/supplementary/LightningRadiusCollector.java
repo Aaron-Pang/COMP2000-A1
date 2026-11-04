@@ -65,10 +65,12 @@ public class LightningRadiusCollector implements Collector<Growable,
     @Override
     public Function<Map<Boolean, List<Growable>>,
                     Map<Boolean, List<Growable>>> finisher() {
-        //The hell is this??
-        return Function.<Map<Boolean, List<Growable>>>identity();
+        //Was encountering an error about the inferred type not matching, so explicitly state types
+        Function<Map<Boolean, List<Growable>>, Map<Boolean, List<Growable>>> ret = Function.identity();
+        return ret;
     }
 
+    @Override
     public Set<Characteristics> characteristics() {
         return Collections.unmodifiableSet(EnumSet.of(Collector.Characteristics.valueOf("IDENTITY_FINISH")));
     }
