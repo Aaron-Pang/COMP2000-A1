@@ -19,8 +19,6 @@ public class Lightning {
 
     public static Map<Boolean, List<Growable>> categoriseGrowables(Ground ground, Point pos) {
         Map<Boolean, List<Growable>> growablesByDistance = ground.getGrowables().stream()
-                .filter(g -> g.getDistanceFrom(pos) < 300)
-                .parallel()
                 .collect(new LightningRadiusCollector(pos));
         //System.out.println(growablesByDistance);
         return growablesByDistance;
