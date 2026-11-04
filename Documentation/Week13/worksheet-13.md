@@ -25,7 +25,27 @@ This was used in Sky, Plant, Flower, Sunflower, and Weed.
 
 **1.2.** For each pattern, paste a code snippet showing the key interaction between participants.
 
+*Observer pattern*
+@Override
+public void checkChange() {
+    if(sky.hour >= 12000) {
+        if((int) (Math.random() * 3) == 0) {
+            //Change to storm
+            sky.state = sky.stormyState;
+        } else {
+            //Change to night
+            sky.state = sky.nightState;
+        }
+        sky.notifyObservers();
+    }
+}
 
+@Override
+public void update(String timeState, int hour){
+    environmentState = timeState;
+}
+
+The function checkChange() is part of one of the Sky's states. When the sky switches state, it will call Sky's notifyObservers(), which in turn will call update() for every observer in it's registered list. The snippet of update() is in Sunflower.java, which will update the Sunflower's data so it can behave differently depending on what the time/weather is in the sky.
 
 
 
@@ -44,6 +64,9 @@ Before learning about the state pattern, I had implemented Plant states by simpl
 ## 2. Streams / Lambdas / Parallelism
 
 **2.1.** List every file in your project that uses lambda expressions or the Streams API.
+- Ground.java
+- LightningRadiusCollector.java
+
 
 
 
@@ -51,15 +74,25 @@ Before learning about the state pattern, I had implemented Plant states by simpl
 
 **2.2.** For the most sophisticated use, paste the code and explain: what does it do, and why was a stream/lambda better than a loop?
 
+public void tick() {
+        ArrayList<Growable> dead = getDead();
+        getGrowables().stream().forEach(i -> i.tick());
+        impacts.stream().forEach(i -> i.tick());
+        dead.stream().forEach(i -> delete(i));
+        getEmptyPatches().stream().forEach(i -> delete(i));
+        repaint();
+        revalidate();
+}
 
-
-
+In this example, streams and lambdas significantly reduce the number of lines of code required to call all the functions for each object in the window every tick. Without them, I would need to write a loop for the Growables, ImpactPoints, and Patches, but here each of these loops becomes a single line, substantially increasing readability.
 
 **2.3.** Did you use parallel streams, custom collectors, or the Fork/Join framework? If yes, how did you ensure thread safety? If no, where could parallelism be introduced?
 
+My program implements parallel streams and a custom collector.
 
+Concerning the parallel streams, I picked out a number of areas in which I read from a list to convert the collection of which to a stream, such as calling the tick() function in plants to let them perform their logic every tick. Some areas were not suitable for parallel streams, such as having objects remove themselves from the window, since this would run into concurrent modification errors/race conditions.
 
-
+I created a custom collector to filter for items that were within a certain distance from a point, used when lightning strikes to determine which Growable objects should be destroyed. It creates a Map<Boolean, List<Growable>>, where true items will be removed. This collector is essentially a filter, but implements the supplier, accumulator, combiner, finisher, and characteristics in such a way that it would be easy to modify the behavour of the collector.
 
 ---
 
@@ -67,7 +100,7 @@ Before learning about the state pattern, I had implemented Plant states by simpl
 
 **3.1.** What did you add to your simulation that went beyond the in-class activities? Describe the feature and what inspired it.
 
-
+Despite beginning implementation of the Lightning class in class, I modified it outside of class to make use of a custom collector after reading the textbook, and gaining an understanding of the 5 main features it needed. I decided that how my Lightning class filtered objects was simple enough for me to 
 
 
 
@@ -99,6 +132,7 @@ Before learning about the state pattern, I had implemented Plant states by simpl
 I feel that design patterns were the most important concept I learnt. I feel more able to find and interpret design patterns outside of the ones taught in this unit, and the structure they provide programs seems to very often be valuable in terms of code maintainability. They were the most impactful on how I designed this program, since I how I would think to do so without them turned out to be much more complicated than it needed to be with design patterns.
 
 - What design trade-off did you face, and how did you resolve it?
+I hesitated while implementing the state pattern, since although it made the code substantially cleaner, it also introduced a lot more individual java files into the project. While this was difficult to manage at first, I figured out how to split a java project into folders/packages to mitigate this issue.
 
 - If you started over, what would you do differently?
 Were I to start over, I would make the simulation grid-based, since I feel this would have made development easier, allow me to more easily integrate certain rubric points, and made it more clear to viewers of the simulation how plants grow and spread. I would also look into design patterns outside of the ones taught by this unit, since there are areas in the program that I feel like have higher coupling than necessary, but wasn' able to figure out how to solve myself.

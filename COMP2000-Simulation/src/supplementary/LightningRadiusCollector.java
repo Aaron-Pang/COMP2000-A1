@@ -1,22 +1,19 @@
 package supplementary;
 
-import java.util.Map;
-import java.util.Set;
-
 import growables.Growable;
 import java.awt.Point;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
-import java.util.stream.Collector.Characteristics;
 
 public class LightningRadiusCollector implements Collector<Growable,
                                                              Map<Boolean, List<Growable>>,
@@ -28,8 +25,6 @@ public class LightningRadiusCollector implements Collector<Growable,
         this.pos = pos;
     }
 
-    
-
     public boolean isNear(Growable g) {
         return(g.getDistanceFrom(pos) < 200);
     }
@@ -38,8 +33,8 @@ public class LightningRadiusCollector implements Collector<Growable,
     public Supplier<Map<Boolean, List<Growable>>> supplier() {
         //Create map to be used by accumulator and prefill it with either near or far
         return () -> new HashMap<Boolean, List<Growable>>() {{
-            put(true, new ArrayList<Growable>());
-            put(false, new ArrayList<Growable>());
+            put(true, new ArrayList<>());
+            put(false, new ArrayList<>());
         }};
     }
 
