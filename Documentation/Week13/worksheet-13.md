@@ -45,7 +45,11 @@ public void update(String timeState, int hour){
     environmentState = timeState;
 }
 
-The function checkChange() is part of one of the Sky's states. When the sky switches state, it will call Sky's notifyObservers(), which in turn will call update() for every observer in it's registered list. The snippet of update() is in Sunflower.java, which will update the Sunflower's data so it can behave differently depending on what the time/weather is in the sky.
+The function checkChange() is part of one of the Sky's states. When the sky switches state, it will call Sky's notifyObservers(), which in turn will call update() for every observer in it's registered list. The snippet of update() is in Sunflower.java, which will update the Sunflower's data so it can behave differently depending on what the time/weather is in the sky. Technically, the observer pattern in the textbook also states that the observer should keep a reference to the object it is observing. While my objects do have this, it is separate from the design pattern, since this functionality was not needed for my implementation of the design pattern.
+
+*State pattern*
+
+These snippets of code demonstrate how the Sky changes time/weather states (this design pattern was also implemented for Growables, which have different stages of growth).
 
 
 
