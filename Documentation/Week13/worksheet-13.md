@@ -49,7 +49,50 @@ The function checkChange() is part of one of the Sky's states. When the sky swit
 
 *State pattern*
 
-These snippets of code demonstrate how the Sky changes time/weather states (this design pattern was also implemented for Growables, which have different stages of growth).
+public interface SkyState {
+    public void paintComponent(Graphics g);
+    public void checkChange();
+    public String getName();
+}
+
+public class SunnyState implements SkyState{
+    public static final String NAME = "SUNNY";
+    Sky sky;
+
+    public SunnyState(Sky sky) {
+        this.sky = sky;
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        sky.setBackground(new Color(140,200,255));
+        g.setColor(Color.YELLOW);
+        double p = (((double) sky.hour)/12000);
+        g.fillOval((int) (p * (double) Window.WIN_WIDTH) - 50, 0, 50, 50);
+    }
+
+    @Override
+    public void checkChange() {
+        if(sky.hour >= 12000) {
+            if((int) (Math.random() * 3) == 0) {
+                //Change to storm
+                sky.state = sky.stormyState;
+            } else {
+                //Change to night
+                sky.state = sky.nightState;
+            }
+            sky.notifyObservers();
+        }
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
+    }
+}
+
+
+These snippets of code demonstrate how the Sky changes time/weather states (this design pattern was also implemented for Growables, which have different stages of growth). The base object Sky contains references to each of its states, the SunnyState being detailed above. These states manage their own behaviour and switch between each other when necessary, updating the Sky's main state as they do so. 
 
 
 
@@ -69,6 +112,7 @@ Before learning about the state pattern, I had implemented Plant states by simpl
 
 **2.1.** List every file in your project that uses lambda expressions or the Streams API.
 - Ground.java
+- Lightning.java
 - LightningRadiusCollector.java
 
 
@@ -90,11 +134,20 @@ public void tick() {
 
 In this example, streams and lambdas significantly reduce the number of lines of code required to call all the functions for each object in the window every tick. Without them, I would need to write a loop for the Growables, ImpactPoints, and Patches, but here each of these loops becomes a single line, substantially increasing readability.
 
+public ArrayList<Growable> getDead() {
+    return getGrowables().stream()
+                         .filter(x -> x.getState().equals("DEAD"))
+                         .parallel()
+                         .collect(Collectors.toCollection(ArrayList::new));
+}
+
+This snippet of code is part of the Ground, and uses a parallel stream to collect all of the growables that have been added to the window that are also dead. This is more effective than a loop for two reasons: It is more concise, since I can specify the conditions by which I am filtering inline with the lambda, and it also allows me to parallelise the filtering process, which would be faster for large numbers of plants (although given the size of the program currently, it is likely actually slower, although I have not benchmarked the code).
+
 **2.3.** Did you use parallel streams, custom collectors, or the Fork/Join framework? If yes, how did you ensure thread safety? If no, where could parallelism be introduced?
 
 My program implements parallel streams and a custom collector.
 
-Concerning the parallel streams, I picked out a number of areas in which I read from a list to convert the collection of which to a stream, such as calling the tick() function in plants to let them perform their logic every tick. Some areas were not suitable for parallel streams, such as having objects remove themselves from the window, since this would run into concurrent modification errors/race conditions.
+Concerning the parallel streams, I picked out a number of areas in which I read from a list to convert the collection of which to a stream, such as calling the tick() function in plants to let them perform their logic every tick, or consolildating a list of Growables in the window that are dead (as specified above). Some areas were not suitable for parallel streams, such as having objects remove themselves from the window, since this would run into concurrent modification errors/race conditions. Hence, I ensured thread safety by only parallelising operations like reading and filtering collections.
 
 I created a custom collector to filter for items that were within a certain distance from a point, used when lightning strikes to determine which Growable objects should be destroyed. It creates a Map<Boolean, List<Growable>>, where true items will be removed. This collector is essentially a filter, but implements the supplier, accumulator, combiner, finisher, and characteristics in such a way that it would be easy to modify the behavour of the collector.
 
@@ -104,7 +157,7 @@ I created a custom collector to filter for items that were within a certain dist
 
 **3.1.** What did you add to your simulation that went beyond the in-class activities? Describe the feature and what inspired it.
 
-Despite beginning implementation of the Lightning class in class, I modified it outside of class to make use of a custom collector after reading the textbook, and gaining an understanding of the 5 main features it needed. I decided that how my Lightning class filtered objects was simple enough for me to 
+Despite beginning implementation of the Lightning class in class, I modified it outside of class to make use of a custom collector after reading the textbook, and gaining an understanding of the 5 main features it needed. I decided that how my Lightning class filtered objects was simple enough for me to create my first custom collector, and while the functionality it provides in the current program would be able to be done using a combination of existing functions, it would also be very easy for me to modify my custom collector to change the criteria by which it collects, for example.
 
 
 
@@ -116,7 +169,7 @@ Despite beginning implementation of the Lightning class in class, I modified it 
 
 **3.3.** If you had another 6 weeks, what would you add or change?
 
-
+I would try to parallelise my the method by which my objects are drawn on the screen, and add a greater variety of entities to interact with each other, like fungi or roses. I would also add different weather states, such as a windy one, which could change the spreading patterns of plants to simulate seeds blowing away. This would be a good opportunity to implement a strategy pattern.
 
 
 
